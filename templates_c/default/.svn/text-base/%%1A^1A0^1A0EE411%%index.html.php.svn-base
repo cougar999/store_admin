@@ -1,0 +1,36 @@
+<?php /* Smarty version 2.6.26, created on 2012-12-04 10:32:09
+         compiled from product/index.html */ ?>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>图片</th>
+		<th>名称</th>
+		<th>分类</th>
+		<th>价格</th>
+		<th>库存</th>
+		<th>状态</th>
+		<th>操作</th>
+	</tr>
+	<?php $_from = $this->_tpl_vars['assign']['page']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
+?>
+	<tr>
+		<td><?php echo $this->_tpl_vars['item']['id']; ?>
+</td>
+		<td><img src="/uploadfile/img/product_mini_1.jpg"></td>
+		<td><?php echo $this->_tpl_vars['item']['name']; ?>
+</td>
+		<td>iPod</td>
+		<td><?php echo $this->_tpl_vars['item']['description']; ?>
+</td>
+		<td>有</td>
+		<td><?php echo $this->_tpl_vars['item']['status']; ?>
+</td>
+		<td>
+			<a href="#">edit</a>
+			<a href="#">view</a>
+			<a href="#">delete</a>
+		</td>
+	</tr>
+	<?php endforeach; endif; unset($_from); ?>
+</table>

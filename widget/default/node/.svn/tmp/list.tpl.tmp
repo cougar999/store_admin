@@ -1,0 +1,120 @@
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<form action="/node?action=multiNodesAction" method="post" onsubmit="" id="nodeform">
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="auto" />
+							<col width="60" />
+							<col width="80" />
+							<col width="100" />
+							<col width="80" />
+							<col width="auto" />
+							<col width="80" />
+						</colgroup>
+						<thead>
+							<tr class="title">
+								<th class="tc">名称</th>
+								<th class="tc">ID</th>
+								<th class="tc">图标</th>
+								<th class="tc">类型</th>
+								<th class="tc">状态</th>
+								<th class="tc">描述</th>
+								<th class="tc">位置</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--{if $assign.page.items}-->
+								<!--{foreach key=key item=item from=$assign.page.items}-->
+								<tr id="node-<!--{$item.id}-->">
+									<td title="<!--{$item.name}-->" style="padding-left:30px;">
+										<!--{if $item.node_type != 1}-->
+											<!--{$item.name}-->
+										<!--{else}-->
+											<a href="/node?parentid=<!--{$item.id}-->"><!--{$item.name}--></a>
+										<!--{/if}-->
+										<span class="ctrlpanel">
+											<a href="/node?action=modifyAction&id=<!--{$item.id}--><!--{if $smarty.get.parentid}-->&parentid=<!--{$smarty.get.parentid}--><!--{/if}-->"><img src="/resources/images/icon_edit3.png" alt="编辑" title="编辑"/></a>
+											<!-- <a href="#"><img src="/resources/images/admin/delete.gif" title="删除"/></a> -->
+											<a href="/node?action=setMemoryDataAction&id=<!--{$item.id}-->" title="<!--{$item.name}-->" class="update_cache no"><img src="/resources/images/icon_edit3.png" title="更新缓存"/></a>
+										</span>
+									</td>
+									<td class="tc"><!--{$item.id}--></td>
+									<td class="tc">
+										<div class="imgbg">
+											<img src="<!--{if !empty($item.icon)}--><!--{$item.icon}--><!--{/if}-->" style="width:auto;height:48px;background:url(/resources/images/transparent.gif) no-repeat center center">
+										</div>
+									</td>
+									<td class="tc"><!--{$assign.arr_node_type[$item.node_type]}--></td>
+									<td class="tc">
+										<!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 1,'node', this)">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 0,'node', this)">下线</a><!--{/if}-->
+									</td>
+									<!-- <td>{$item.content_id}</td> -->
+									<td><!--{$item.desc}--></td>
+									<td class="tc"><!--{$item.order_id}--></td>
+								</tr>
+								<!--{if $assign.child[$item.id]}-->
+									<!--{foreach key=key1 item=child_item from=$assign.child[$item.id]}-->
+									<tr id="node-<!--{$child_item.id}-->" class="child-of-node-<!--{$item.id}-->">
+										<td title="<!--{$child_item.name}-->">
+											<!--{if $child_item.node_type != 1 && $child_item.node_type != 2}-->
+												<!--{$child_item.name}-->
+											<!--{else}-->
+												<a href="/node?parentid=<!--{$child_item.id}-->"><!--{$child_item.name}--></a>
+											<!--{/if}-->
+											<span class="ctrlpanel">
+												<a href="/node?action=modifyAction&id=<!--{$child_item.id}-->"><img src="/resources/images/icon_edit3.png" alt="编辑" title="编辑"/></a>
+												<!-- <a href="#"><img src="/resources/images/admin/delete.gif" title="删除"/></a> -->
+												<a href="/node?action=setMemoryDataAction&id=<!--{$child_item.id}-->" title="<!--{$child_item.name}-->" class="update_cache no"><img src="/resources/images/icon_edit3.png" title="更新缓存"/></a>
+											</span>
+										</td>
+										<td class="tc"><!--{$child_item.id}--></td>
+										<td class="tc">
+											<div class="imgbg">
+												<img src="<!--{if !empty($child_item.icon)}--><!--{$child_item.icon}--><!--{/if}-->" style="width:auto;height:48px;background:url(/resources/images/transparent.gif) no-repeat center center">
+											</div>
+										</td>
+										<td class="tc"><!--{$assign.arr_node_type[$child_item.node_type]}--></td>
+										<td class="tc">
+											<!--{if $child_item.status && $child_item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$child_item.id}-->, 1,'node', this)">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$child_item.id}-->, 0,'node', this)">下线</a><!--{/if}-->
+										</td>
+										<td><!--{$child_item.desc}--></td>
+										<td class="tc"><!--{$child_item.order_id}--></td>
+									</tr>
+									<!--{/foreach}-->
+								<!--{/if}-->
+								<!--{/foreach}-->
+							<!--{else}-->
+								<tr>
+									<td colspan="11" class="tc">未找到内容</td>
+								</tr>
+							<!--{/if}-->
+						</tbody>
+					</table>
+				</div>
+				<div class="btns">
+					<input type="hidden" value="" name="actionOrder" id="actionCur" />
+					<input type="hidden" value="" name="statusOrder" id="statusCur" />
+				</div>
+				</form>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+<script language="javascript">
+$(function(){
+	$("#tableviewer").treeTable({
+		initialState: "expanded"
+	});
+	$("#page a").click(function(){
+		var url = $(this).attr("href");
+		if(url){
+			$("#right_content").load(url);
+		}
+		return false;
+	});
+})
+</script>

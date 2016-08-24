@@ -1,0 +1,31 @@
+<style>
+table{width:100%;vertical-align: inherit;text-align:center;}
+table tr{border-color:inherit;}
+</style>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>图标</th>
+		<th>分类名称</th>
+		<th>描述</th>
+		<th>价格</th>
+		<th>状态</th>
+		<th>操作</th>
+	</tr>
+	<a href="/category?action=addAction<!--{if $smarty.get.parentid > 0}-->&parentid=<!--{$smarty.get.parentid|default:-1}--><!--{/if}-->">add category</a>
+	<!--{foreach key=key item=item from=$assign.page.items}-->
+	<tr>
+		<td><!--{$item.id}--></td>
+		<td><img src="/uploadfile/img/product_mini_1.jpg"></td>
+		<td><a href="category?parentid=<!--{$item.id}-->"><!--{$item.name}--></a></td>
+		<td><!--{$item.description}--></td>
+		<td></td>
+		<td><!--{$item.status}--></td>
+		<td>
+			<a href="#">edit</a>
+			<a href="#">view</a>
+			<a href="#">delete</a>
+		</td>
+	</tr>
+	<!--{/foreach}-->
+</table>

@@ -1,0 +1,77 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">属性列表</h1>
+				<div class="ctrlbar fr">
+					<a class="v13-button-secondary fl" href="/attribute?action=addAction">
+						<span class="v13-icon-add"></span>添加属性
+					</a>
+				</div>
+			</div>
+			<br />
+			<div class="datatable">
+				<div class="datatableHeader">
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="auto" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th>名称</th>
+								<th>操作</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><input type="checkbox" name="pcroduct" value="<!--{$item.id}-->"/></td>
+								<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+								<td>
+									<div class="attrlink">
+										<a href="javascript:void(0);" onclick="getAttrValueList(this, <!--{$item.id}-->, 'childAttrListUl');return false;">
+											<!--{$item.name}-->(<span class="attrValueCount"><!--{if $item.values_count && $item.values_count != '' }--><!--{$item.values_count}--><!--{else}-->0<!--{/if}--></span>)
+										</a>
+									</div>
+									<div class="childAttrList no">
+										<ul class="childAttrListUl">
+										</ul>
+									</div>
+									<div class="addAttrDiv no">
+											<input type="text" name="attribute_value" value="" id="attribute_value" />
+											<input type="submit" value="添加" onclick="submitAttrValue(this);return false;" />
+											<input type="submit" value="取消" onclick="hidethis(this);return false;" />
+											<input type="hidden" name="attribute_id" value="<!--{$item.id}-->" id="attribute_id" />
+											<span class="attrAddState no"></span>
+									</div>
+									<div class="showAttrDiv no">
+										b
+									</div>
+									
+								</td>
+								<td>
+									<a href="#null" onclick="showAddAttr(this);return false;"><img src="/resources/images/admin/add.gif" alt="添加值" title="添加值"/></a> 
+									<a href="/attribute?action=modifyAction&id=<!--{$item.id}-->"><img src="/resources/images/admin/edit.gif" alt="编辑" title="编辑"/></a> 
+									<a href="/attribute?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除属性“<!--{$item.name}-->?”'))return false;"><img src="/resources/images/admin/delete.gif" title="删除"/></a>
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->

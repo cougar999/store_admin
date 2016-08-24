@@ -1,0 +1,70 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<h1 class="fl intitle">访问统计</h1>
+					<div class="ctrlbar fr">
+					<a class="v13-button-secondary fl visit_statistic" href="/statistic?action=statisticalGraphAction">
+							<span class="v13-icon-graph"></span>查看统计图
+						</a>
+					</div>
+				</div>
+				<form action="" method="post">
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="100" />
+							<col width="auto" />
+							<col width="150" />
+							<col width="150" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">序号</th>
+								<th class="tc">日期</th>
+								<th class="tc">PV</th>
+								<th class="tc">UV</th>
+								<th class="tc">详情</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><!--{$key+1}--></td>
+								<td><!--{$item.stat_year}-->年<!--{$item.stat_month}-->月<!--{$item.stat_day}-->日</td>
+								<td class="tc"><!--{$item.pv}--></td>
+								<td class="tc"><!--{$item.uv}--></td>
+								<td class="tc">
+									<a href="/" class="view_repay"><img src="/resources/images/icon_replist.png" alt="查看PV详情" title="查看PV详情"></a>
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				</form>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->
+<script language="javascript">
+$(function(){
+	$(".visit_statistic").live("click",function(){
+		$.colorbox({
+			href:this.href,
+			iframe:true, width:'70%', height:'600px', close:'关闭', overlayClose:true, opacity:0.5
+		});
+		return false;
+	})
+})
+</script>

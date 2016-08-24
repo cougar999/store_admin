@@ -1,0 +1,46 @@
+<form method="post" action="">
+<div id="attrlist_box" class="">
+	<table width="100%" border="0">
+		<colgroup>
+			<col width="100" />
+			<col width="20" />
+			<col width="auto" />
+		</colgroup>
+		<tbody>
+		<tr>
+			<th class="padded">变属性名</th>
+			<th>&nbsp;</th>
+			<th>属性值</th>
+		</tr>
+		<!--{if $assign.attr}-->
+			<!--{foreach key=key item=attr from=$assign.attr}-->
+			<tr>
+				<td class="padded"><!--{$attr.name}--></td>
+				<td>&nbsp;</td>
+				<td>
+					<input type="hidden" name="attribute_id[]" value="<!--{$key}-->" class="combid" />
+					<span class="attrlistbox">
+						<!--{foreach key=key2 item=_attr from=$attr.attr_values}-->
+						<p class="checkw"><input type="checkbox" name="attrvalue[<!--{$key}-->][]" value="<!--{$key2}-->" id="chk<!--{$key2}-->" <!--{if $_attr.is_exist && $_attr.is_exist == 1 }-->checked="checked"<!--{/if}-->> <label for="chk<!--{$key2}-->"><!--{$_attr.value}--></label></p>
+						<!--{/foreach}-->
+					</span>
+				</td>
+			</tr>
+			<!--{/foreach}-->
+		<!--{else}-->
+			未找到属性信息
+		<!--{/if}-->
+		</tbody>
+	</table>
+	<div class="btns">
+    <input type="submit" name="attrlistbtn" id="attrlistbtn" value="提交" onclick="addAttrValues(this);return false;" />
+    <input type="button" name="cancel" id="cancel" value="取消" onclick="parent.$.colorbox.close();return false;" />
+    <input type="hidden" name="isAttrValueSubmit" value="1" />
+    </div>
+    </div>
+</form>
+<script type="text/javascript">
+	window.onload = function(){
+		//getAttrValue();
+	}
+</script>

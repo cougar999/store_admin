@@ -1,0 +1,137 @@
+<?php /* Smarty version 2.6.26, created on 2012-12-04 11:18:43
+         compiled from header.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'header.tpl', 13, false),)), $this); ?>
+<!-- header start -->
+<div id="header">
+	<div id="logo">
+		<a href="/">返回首页</a>
+	</div>
+	<div id="mainmenu">
+		<ul id="AdminMenuMain" class="adminMenuItems">
+			<li id="MainNav_Orders" class="selected">
+				<span>商品管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="商品列表" href="/product" onclick="getLinkAdmin('product');return false;">商品列表</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="添加商品" href="/product?action=addAction<?php if ($_GET['parentid'] > 0): ?>&parentid=<?php echo ((is_array($_tmp=@$_GET['parentid'])) ? $this->_run_mod_handler('default', true, $_tmp, -1) : smarty_modifier_default($_tmp, -1)); ?>
+<?php endif; ?>">添加商品</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="MainNav_Customers">
+				<span>分类管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="分类列表" href="/category" onclick="getLinkAdmin('category');return false;">分类列表</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="添加分类" href="/category?action=addAction<?php if ($_GET['parentid'] > 0): ?>&parentid=<?php echo ((is_array($_tmp=@$_GET['parentid'])) ? $this->_run_mod_handler('default', true, $_tmp, -1) : smarty_modifier_default($_tmp, -1)); ?>
+<?php endif; ?>">添加分类</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="">
+				<span>订单管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="" href="##">Process Orders</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="" href="##">Phone Orders</a></li>
+						<li id="Orders_SubNav_RecurringBilling" class="subnav"><a title="" href="##">Recurring Billing</a></li>
+						<li id="Orders_SubNav_ReturnsRMAs" class="subnav"><a title="" href="##">Returns/RMAs</a></li>
+						<li id="Orders_SubNav_PointofSale" class="subnav"><a title="" href="##">Point of Sale</a></li>
+						<li id="Orders_SubNav_AbandonedLiveCarts" class="subnav"><a title="" href="##">Abandoned/Live Carts</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="">
+				<span>促销管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="" href="##">Process Orders</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="" href="##">Phone Orders</a></li>
+						<li id="Orders_SubNav_RecurringBilling" class="subnav"><a title="" href="##">Recurring Billing</a></li>
+						<li id="Orders_SubNav_ReturnsRMAs" class="subnav"><a title="" href="##">Returns/RMAs</a></li>
+						<li id="Orders_SubNav_PointofSale" class="subnav"><a title="" href="##">Point of Sale</a></li>
+						<li id="Orders_SubNav_AbandonedLiveCarts" class="subnav"><a title="" href="##">Abandoned/Live Carts</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="">
+				<span>店面管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="" href="##">Process Orders</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="" href="##">Phone Orders</a></li>
+						<li id="Orders_SubNav_RecurringBilling" class="subnav"><a title="" href="##">Recurring Billing</a></li>
+						<li id="Orders_SubNav_ReturnsRMAs" class="subnav"><a title="" href="##">Returns/RMAs</a></li>
+						<li id="Orders_SubNav_PointofSale" class="subnav"><a title="" href="##">Point of Sale</a></li>
+						<li id="Orders_SubNav_AbandonedLiveCarts" class="subnav"><a title="" href="##">Abandoned/Live Carts</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="">
+				<span>用户管理</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="" href="##">Process Orders</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="" href="##">Phone Orders</a></li>
+						<li id="Orders_SubNav_RecurringBilling" class="subnav"><a title="" href="##">Recurring Billing</a></li>
+						<li id="Orders_SubNav_ReturnsRMAs" class="subnav"><a title="" href="##">Returns/RMAs</a></li>
+						<li id="Orders_SubNav_PointofSale" class="subnav"><a title="" href="##">Point of Sale</a></li>
+						<li id="Orders_SubNav_AbandonedLiveCarts" class="subnav"><a title="" href="##">Abandoned/Live Carts</a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="">
+				<span>问答</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="Orders_SubNav_Overview" class="subnav"><a title="" href="##">Process Orders</a></li>
+						<li id="Orders_SubNav_PhoneOrders" class="subnav"><a title="" href="##">Phone Orders</a></li>
+						<li id="Orders_SubNav_RecurringBilling" class="subnav"><a title="" href="##">Recurring Billing</a></li>
+						<li id="Orders_SubNav_ReturnsRMAs" class="subnav"><a title="" href="##">Returns/RMAs</a></li>
+						<li id="Orders_SubNav_PointofSale" class="subnav"><a title="" href="##">Point of Sale</a></li>
+						<li id="Orders_SubNav_AbandonedLiveCarts" class="subnav"><a title="" href="##">Abandoned/Live Carts</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div id="AdminHeaderTools">
+		<ul id="AdminStorefrontMenu" class="adminMenuItems">
+			<li id="Assist_menu">
+				<span>辅助菜单一</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id=""><a href="##">辅助二级菜单</a></li>
+						<li id=""><a href="##">辅助二级菜单</a></li>
+						<li id=""><a href="##">辅助二级菜单</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<ul id="AdminCurrentUserMenu" class="adminMenuItems">
+			<li id="MainNav_CurrentUser">
+				<span>用户信息菜单</span>
+				<div class="SubMenuWrapper">
+					<ul>
+						<li id="" class="hover">
+							<span class="staticContent"><a>Store ID&nbsp;&nbsp;<span id="admStoreId">01-205-355</span></a></span>
+						</li>
+						<li id="Notification_Panel_Alert_Icon">
+							<span class="ToolText"><a onclick="Notification_Panel.ResetHidden();" href="javascript:void(0);">[<span id="Notification_Count">1</span>]
+							条消息</a></span>
+						</li>
+						<li id="ToolsNav_MyVolusion">
+							<span class="subnav ToolText" id="ToolsNav_MyVolusionLink">
+							<a href="##" target="_blank">我的信息</a></span>
+						</li>
+						<li id="ToolsNav_Logout">
+							<span class="subnav ToolText" id="ToolsNav_LogoutLink"><a href="###">安全退出</a></span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- header end -->

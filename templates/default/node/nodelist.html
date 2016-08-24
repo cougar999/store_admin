@@ -1,0 +1,27 @@
+<div id="wrapper">
+	<div id="content">
+		<div class="clearfix">
+			<h1>选择栏目</h1>
+		</div>
+		<div class="datatable">
+			<ul class="nodelist">
+				<!--{foreach key=key item=item from=$assign.nodelist}-->
+					<!--{if $item.pid == -1}-->
+					<h2><span><label for="chk<!--{$item.id}-->" class="nodename"><!--{$item.name}--></label></span></h2>
+					<!--{else}-->
+					<li title="<!--{$item.name}-->" style="width:200px;">
+						<input type="radio" name="nodeid" value="<!--{$item.id}-->" id="chk<!--{$item.id}-->" />
+						<label for="chk<!--{$item.id}-->" class="nodename"><!--{$item.name}--></label>
+					</li>
+					<!--{/if}-->
+				<!--{/foreach}-->
+			</ul>
+			<div class="cl"></div>
+			<div class="btns clearfix">
+				<input type="button" name="select_nodevalue" id="select_nodevalue" value="提交" onclick="node.selectNodeValue(this);" class="fl" style="margin-right:5px;" />
+				<input type="button" value="取消" onclick="parent.$.colorbox.close();" class="fl" />
+				<div class="wariningState no fl"></div>
+			</div>
+		</div>
+	</div>
+</div>

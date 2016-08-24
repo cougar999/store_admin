@@ -1,0 +1,109 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">节点管理 > <!--{$assign.title_name}--></h1>
+				<div class="ctrlbar fr">
+					<a class="v13-button-secondary fl" href="/node?action=addAction<!--{if $smarty.get.parentid}-->&parentid=<!--{$smarty.get.parentid}--><!--{/if}-->">
+						<span class="v13-icon-add"></span>添加节点
+					</a>
+					<a class="v13-button-secondary fl updateCacheAll" rel="node" href="/node?action=updateCacheAll">
+						<span class="v13-icon-cache"></span>更新缓存
+					</a>
+				</div>
+			</div>
+			<br />
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<div class="fl headertext filter">
+						<label>过滤：</label>
+						<select onchange="OnSelectBoxValueChanged(this);">
+							<option value="">请选择</option>
+							<option value="Products">选项一</option>
+							<option value="Products_LowInventory">选项一</option>
+							<option value="Products_ToPurchase">选项一</option>
+						</select>
+					</div>
+					
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="80" />
+							<col width="150" />
+							<col width="100" />
+							<!-- <col width="100" /> -->
+							<col width="110" />
+							<col width="170" />
+							<col width="170" />
+<<<<<<< .mine
+							<col width="auto" />
+							<col width="200" />
+=======
+							<col width="250" />
+							<col width="100" />
+>>>>>>> .r12281
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th class="tc">图标</th>
+								<th class="tc">节点名称</th>
+								<th class="tc">类型</th>
+								<th class="tc">节点状态</th>
+								<!-- <th class="tc">关联内容ID</th> -->
+								<th class="tc">更新时间</th>
+								<th class="tc">创建时间</th>
+								<th class="tc">描述</th>
+								<th class="tc">操作</th>
+							</tr>
+							<!--{if $assign.page.items}-->
+								<!--{foreach key=key item=item from=$assign.page.items}-->
+								<tr>
+									<td class="tc"><input type="checkbox" name="pcroduct" value="<!--{$item.id}-->"/></td>
+									<td class="tc"><!--{$item.id}--></td>
+									<td class="tc"><img src="<!--{if !empty($item.icon)}--><!--{$item.icon}--><!--{else}-->/resources/images/no_image.gif<!--{/if}-->" style="width:25px;height:25px;"></td>
+									<td><a href="/node?parentid=<!--{$item.id}-->"><!--{$item.name}--></a></td>
+									<td><!--{$assign.arr_node_type[$item.node_type]}--></td>
+									<td class="tc">
+										<!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 1,'node')">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 0,'node')">下线</a><!--{/if}-->
+									</td>
+									<!-- <td>{$item.content_id}</td> -->
+									<td><!--{$item.update_time}--></td>
+									<td><!--{$item.create_time}--></td>
+									<td><!--{$item.desc}--></td>
+									<td>
+										<a href="/node?action=modifyAction&id=<!--{$item.id}--><!--{if $smarty.get.parentid}-->&parentid=<!--{$smarty.get.parentid}--><!--{/if}-->"><img src="/resources/images/admin/edit.gif" alt="编辑" title="编辑"/></a>
+										<a href="#"><img src="/resources/images/admin/delete.gif" title="删除"/></a>
+										<a href="/node?action=setMemoryDataAction&id=<!--{$item.id}-->" title="<!--{$item.name}-->" class="update_cache"><img src="/resources/images/admin/quick.gif" title="更新缓存"/></a>
+									</td>
+								</tr>
+								<!--{/foreach}-->
+							<!--{else}-->
+								<tr>
+									<td colspan="11" class="tc">未找到内容</td>
+								</tr>
+							<!--{/if}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->

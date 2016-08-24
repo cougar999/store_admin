@@ -1,0 +1,62 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1><h1>编辑后台管理账户</h1></h1>
+			</div>
+			<br />
+			<div class="cl"></div>
+			
+			<form enctype="multipart/form-data" method="post"  action="">
+			<fieldset>
+				<legend>管理  -- 后台管理账户</legend>
+				<table id="tableviewer" border="0" class="formtable">
+					<tr>
+						<td>角色：</td>
+						<td>
+							<select name="role_id">
+								<!--{foreach key=role_id item=name from=$assign.role}-->
+									<option value="<!--{$role_id}-->" <!--{if $role_id == $assign.page.role_id}-->selected="selected"<!--{/if}-->><!--{$name}--></option>
+								<!--{/foreach}-->
+							</select>
+						<td>
+						<td>所属渠道：</td>
+						<td>
+							<select name="chncode">
+								<!--{foreach key=channel_code item=name from=$assign.arr_chncode}-->
+									<option value="<!--{$channel_code}-->"<!--{if $channel_code == $assign.page.chncode}-->selected="selected"<!--{/if}-->><!--{$name}--></option>
+								<!--{/foreach}-->
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>账户名称：</td><td><input type="text" name="name" value="<!--{$assign.page.name}-->"><td>
+					</tr>
+					<tr>
+						<td>email：</td><td><input type="text" name="email" value="<!--{$assign.page.email}-->"><td>
+					</tr>
+					<tr>
+						<td>密码：</td><td><input type="password" name="passwd" value=""><font style="font-size:12px;padding:5px;color:red;">(默认空提交不修改密码)</font><td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							
+								<input type="radio" name="status" value="1" id="onlineSel" <!--{if $assign.page.status == 1}-->checked="checked"<!--{/if}-->></radio>
+								<label for="onlineSel">上线</label>
+								&nbsp;&nbsp;
+								<input type="radio" name="status" value="0" id="offlineSel" <!--{if $assign.page.status == 0}-->checked="checked"<!--{/if}-->></radio>
+								<label for="offlineSel">下线</label>
+						<td>
+					</tr>
+					<tr>
+						<td></td><td><input type="submit" value="提交"><input type="hidden" name="isAdminUserSubmit" value="1"></td>
+					</tr>
+				</table>
+			</fieldset>
+			</form>
+		</div>
+	</div>
+<!-- content end -->
+<script language="javascript">
+</script>

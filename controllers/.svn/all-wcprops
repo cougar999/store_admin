@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/frontend/!svn/ver/12745/code/store_admin/trunk/controllers
+END
+Validate.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/frontend/!svn/ver/11869/code/store_admin/trunk/controllers/Validate.php
+END
+AdminCategoryController.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/frontend/!svn/ver/12665/code/store_admin/trunk/controllers/AdminCategoryController.php
+END
+AdminUserController.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/12615/code/store_admin/trunk/controllers/AdminUserController.php
+END
+AdminController.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/frontend/!svn/ver/12478/code/store_admin/trunk/controllers/AdminController.php
+END
+ControllerCore.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/frontend/!svn/ver/11869/code/store_admin/trunk/controllers/ControllerCore.php
+END
+AdminProductController.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/frontend/!svn/ver/12691/code/store_admin/trunk/controllers/AdminProductController.php
+END
+AdminNodeController.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/12665/code/store_admin/trunk/controllers/AdminNodeController.php
+END
+AdminPromoteController.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/frontend/!svn/ver/12713/code/store_admin/trunk/controllers/AdminPromoteController.php
+END
+AdminHomeController.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/11869/code/store_admin/trunk/controllers/AdminHomeController.php
+END
+LoginController.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/frontend/!svn/ver/12575/code/store_admin/trunk/controllers/LoginController.php
+END
+AdminRoleController.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/12335/code/store_admin/trunk/controllers/AdminRoleController.php
+END
+AdminAttributeController.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/frontend/!svn/ver/12308/code/store_admin/trunk/controllers/AdminAttributeController.php
+END
+AdminCouponController.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/frontend/!svn/ver/12665/code/store_admin/trunk/controllers/AdminCouponController.php
+END
+AdminSearchController.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/frontend/!svn/ver/12689/code/store_admin/trunk/controllers/AdminSearchController.php
+END
+AdminQuestionController.php
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/frontend/!svn/ver/12569/code/store_admin/trunk/controllers/AdminQuestionController.php
+END
+AdminStatisticController.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/frontend/!svn/ver/12745/code/store_admin/trunk/controllers/AdminStatisticController.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/frontend/!svn/ver/12365/code/store_admin/trunk/controllers/.htaccess
+END
+AdminShopController.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/12665/code/store_admin/trunk/controllers/AdminShopController.php
+END
+AdminOrderController.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/frontend/!svn/ver/12424/code/store_admin/trunk/controllers/AdminOrderController.php
+END

@@ -1,0 +1,38 @@
+<div id="content">
+<form method="post" action="">
+	<fieldset>
+		<legend>分类 -- 添加分类</legend>
+		<table id="tableviewer" border="0">
+			<tr>
+				<th>父分类：</th><td><span id="category_pid"></span></td>
+			</tr>
+			<tr>
+				<th>名称：</th><td><input type="text" name="name"><td>
+			</tr>
+			<tr>
+				<th>描述：</th><td><input type="text" name="description"><td>
+			</tr>
+			<tr>
+				<th>图标：</th><td><input type="file" name="icon"><td>
+			</tr>
+			<tr>
+				<th>状态：</th><td><select name="status"><option value="1">上线</option><option value="0">下线</option></select><td>
+			</tr>
+			<tr><td colspan="2"><input type="submit" value="添加分类"><input type="hidden" name="isCategorySubmit" value="1"></td></tr>
+		</table>
+	</fieldset>
+</form>
+<script language="javascript">
+$(function(){
+	$.post('category',{action:"getChildList"},function(data){
+		var html_content = '<select name="pid">';
+		html_content += '<option value="-1">--顶级分类--</option>';
+		for(var i = 0 ; i < data.length ; i++){
+			html_content += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+		}
+		html_content += '</select>';
+		$("#category_pid").html(html_content);
+	},'json');
+})
+</script>
+</div>

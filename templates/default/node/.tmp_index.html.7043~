@@ -1,0 +1,129 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<h1 class="fl intitle">发布管理<!--{if $assign.title_name}--> > <!--{$assign.title_name}--><!--{/if}--></h1>
+					<!--{if $assign.all_node}-->
+					<div class="ctrlbar fl">
+						<select id="parent_id" style="margin:2px 0 0 10px;">
+							<!--{foreach key=key item=node_info from=$assign.all_node}-->
+							<option value="<!--{$node_info.id}-->"><!--{$node_info.name}--></option>
+							<!--{/foreach}-->
+						</select>
+					</div>
+					<!--{/if}-->
+					<!--{include file='search_product.tpl'}-->
+					<div class="ctrlbar fr">
+						<a class="v13-button-secondary fl" href="/node?action=addAction<!--{if $smarty.get.parentid}-->&parentid=<!--{$smarty.get.parentid}--><!--{/if}-->">
+							<span class="v13-icon-add"></span>添加节点
+						</a>
+						<a class="v13-button-secondary fl updateCacheAll" rel="node" href="/node?action=updateCacheAll">
+							<span class="v13-icon-cache"></span>更新缓存
+						</a>
+					</div>
+				</div>
+				<form action="/node?action=multiNodesAction" method="post" onsubmit="" id="nodeform">
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="60" />
+							<col width="60" />
+							<col width="150" />
+							<col width="100" />
+							<!-- <col width="100" /> -->
+							<col width="110" />
+							<col width="170" />
+							<col width="170" />
+							<col width="200" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th class="tc">图标</th>
+								<th class="tc">名称</th>
+								<th class="tc">类型</th>
+								<th class="tc">状态</th>
+								<!-- <th class="tc">关联内容ID</th> -->
+								<th class="tc">更新时间</th>
+								<th class="tc">创建时间</th>
+								<th class="tc">描述</th>
+								<th class="tc">位置</th>
+							</tr>
+							<!--{if $assign.page.items}-->
+								<!--{foreach key=key item=item from=$assign.page.items}-->
+								<tr>
+									<td class="tc"><input type="checkbox" name="nodeids[]" value="<!--{$item.id}-->" class="batchids" /></td>
+									<td class="tc"><!--{$item.id}--></td>
+									<td class="tc">
+										<div class="imgbg">
+											<img src="<!--{if !empty($item.icon)}--><!--{$item.icon}--><!--{/if}-->" style="width:auto;height:48px;background:url(/resources/images/transparent.gif) no-repeat center center">
+										</div>
+									</td>
+									<td>
+										<!--{if $item.node_type == 4}-->
+											<!--{$item.name}-->
+										<!--{else}-->
+											<a href="/node?parentid=<!--{$item.id}-->"><!--{$item.name}--></a>
+										<!--{/if}-->
+										<span class="ctrlpanel">
+											<a href="/node?action=modifyAction&id=<!--{$item.id}-->"><img src="/resources/images/icon_edit3.png" alt="编辑" title="编辑"/></a>
+											<!-- <a href="#"><img src="/resources/images/admin/delete.gif" title="删除"/></a> -->
+											<a href="/node?action=setMemoryDataAction&id=<!--{$item.id}-->" title="<!--{$item.name}-->" class="update_cache no"><img src="/resources/images/icon_edit3.png" title="更新缓存"/></a>
+										</span>
+									</td>
+									<td><!--{$assign.arr_node_type[$item.node_type]}--></td>
+									<td class="tc">
+										<!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 1,'node', this)">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 0,'node', this)">下线</a><!--{/if}-->
+									</td>
+									<!-- <td>{$item.content_id}</td> -->
+									<td><!--{$item.update_time}--></td>
+									<td><!--{$item.create_time}--></td>
+									<td><!--{$item.desc}--></td>
+									<td class="tc"><!--{$item.order_id}--></td>
+								</tr>
+								<!--{/foreach}-->
+							<!--{else}-->
+								<tr>
+									<td colspan="11" class="tc">未找到内容</td>
+								</tr>
+							<!--{/if}-->
+						</tbody>
+					</table>
+				</div>
+				<div class="btns">
+					<input type="button" value="批量下线" name="updownNodes" updownnodes="1" onclick="changeMulti(this);return false;" class="updownNodes" />
+					<input type="button" value="批量上线" name="updownNodes" updownnodes="0" onclick="changeMulti(this);return false;" class="updownNodes"  />
+					<input type="hidden" value="" name="actionOrder" id="actionCur" />
+					<input type="hidden" value="" name="statusOrder" id="statusCur" />
+				</div>
+				</form>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->
+<script language="javascript">
+$(function(){
+	var parentid = GetQueryString('parentid');
+	$("#parent_id").val(parentid);
+	$("#parent_id").change(function(){
+		window.location.href = '/node?parentid=' + $(this).val();
+	});
+})
+</script>

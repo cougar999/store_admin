@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins
+END
+function.paging.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/function.paging.php
+END
+function.querys.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/function.querys.php
+END
+modifier.sizetext.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/modifier.sizetext.php
+END
+modifier.truncate_utf8_string.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/modifier.truncate_utf8_string.php
+END
+modifier.base64_en.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/modifier.base64_en.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/plugins/.htaccess
+END
+modifier.pagepath.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/modifier.pagepath.php
+END
+function.params.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/frontend/!svn/ver/11989/code/store_admin/trunk/libs/plugins/function.params.php
+END

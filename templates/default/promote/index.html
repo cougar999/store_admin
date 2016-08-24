@@ -1,0 +1,90 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<h1 class="fl intitle">
+					促销活动列表
+					</h1>
+					<!--{include file='search_product.tpl'}-->
+					<div class="ctrlbar fr">
+						<a class="v13-button-secondary fl addpromBtn" href="/promote?action=addAction">
+							<span class="v13-icon-add"></span>添加促销活动
+						</a>
+						<a class="v13-button-secondary fl updateCacheAll" rel="promote" href="/promote?action=updateCacheAll">
+							<span class="v13-icon-cache"></span>更新缓存
+						</a>
+					</div>
+				</div>
+				
+				<form action="/promote?action=multiPromAction" method="post" onsubmit="" id="ChangeMultiForm">
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="auto" />
+							<col width="100" />
+							<col width="auto" />
+							<col width="100" />
+							<col width="100" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th>名称</th>
+								<th class="tc">状态</th>
+								<th>描述</th>
+								<th>省份</th>
+								<th>城市</th>
+							</tr>
+							<!--{if $assign.page.items}-->
+								<!--{foreach key=key item=item from=$assign.page.items}-->
+								<tr>
+									<td class="tc"><input type="checkbox" name="promids[]" value="<!--{$item.id}-->"/></td>
+									<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+									<td>
+										<a href="/promote?action=modifyAction&id=<!--{$item.id}-->"><!--{$item.title}--></a>
+										<span class="ctrlpanel">
+											<a href="/promote?action=modifyAction&id=<!--{$item.id}-->"><img src="/resources/images/icon_edit3.png" alt="编辑" title="编辑"/></a>
+											<a href="/promote?action=delAction&id=<!--{$item.id}-->&status=<!--{$item.status}-->" onclick="if(!confirm('确认删除活动“<!--{$item.title}-->?”'))return false;"><img src="/resources/images/icon_trash3.png" title="删除"/></a>
+											<a href="/promote?action=setMemoryDataAction&id=<!--{$item.id}-->" title="<!--{$item.title}-->" class="update_cache no"><img src="/resources/images/icon_cloud3.png" title="更新缓存"/></a>
+										</span>
+									</td>
+									<td class="tc">
+										<!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 1,'promote', this)">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 0,'promote', this)">下线</a><!--{/if}-->
+									</td>
+									<td><!--{$item.description}--></td>
+									<td><!--{$assign.area[$item.prov_id].name}--></td>
+									<td><!--{$assign.area[$item.city_id].name}--></td>
+								</tr>
+								<!--{/foreach}-->
+							<!--{else}-->
+								<tr>
+									<td colspan="9" class="tc">未找到内容</td>
+								</tr>
+							<!--{/if}-->
+						</tbody>
+					</table>
+				</div>
+				<div class="btns">
+					<input type="button" value="批量下线" name="updownProm" updownparas="1" onclick="changeMulti(this, 'updownPromFlag');return false;" class="updownOperate" />
+					<input type="button" value="批量上线" name="updownProm" updownparas="0" onclick="changeMulti(this, 'updownPromFlag');return false;" class="updownOperate" />
+					<input type="hidden" value="" name="actionOrder" id="actionCur" />
+					<input type="hidden" value="" name="statusOrder" id="statusCur" />
+				</div>
+				</form>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+		</div>
+	</div>
+<!-- content end -->

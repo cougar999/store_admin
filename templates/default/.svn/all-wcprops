@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/12748/code/store_admin/trunk/templates/default
+END
+layout.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/frontend/!svn/ver/11884/code/store_admin/trunk/templates/default/layout.html
+END
+upload_file.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/frontend/!svn/ver/12255/code/store_admin/trunk/templates/default/upload_file.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/frontend/!svn/ver/11874/code/store_admin/trunk/templates/default/index.html
+END
+layout_block.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/frontend/!svn/ver/12074/code/store_admin/trunk/templates/default/layout_block.html
+END
+home.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/frontend/!svn/ver/11874/code/store_admin/trunk/templates/default/home.html
+END
+login.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/frontend/!svn/ver/12582/code/store_admin/trunk/templates/default/login.html
+END
+layout_page.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/frontend/!svn/ver/11874/code/store_admin/trunk/templates/default/layout_page.html
+END

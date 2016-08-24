@@ -1,0 +1,115 @@
+<?php
+class AdminProductController extends AdminController{
+		
+	public function __construct(){
+		$this->template_info = true;
+		$this->count = 20;
+		parent::__construct();
+	}
+	
+	public function initAction() {
+		$page = Product::getPageList();
+		$this->assign('page', $page);
+		$this->view('product/index.html');
+	}
+	
+	public function addAction() {
+		if(!isSubmit('isProductSubmit')){
+			$this->view('product/add.html');
+		} else {
+			
+			$name = trim(getValue('name'));
+			$stock = trim(getValue('stock'));
+			$description = trim(getValue('description'));
+			$pack_list = trim(getValue('pack_list'));
+			$status = intval(getValue('status'));
+			$service = trim(getValue('service'));
+			$channel_code = trim(getValue('channel_code'));
+			$products_spec = trim(getValue('products_spec'));
+			$original_price = intval(getValue('original_price'));
+			$original_price_name = trim(getValue('original_price_name'));
+			$use_price = intval(getValue('use_price'));
+			$use_price_name = trim(getValue('use_price_name'));
+			$dicount_price = intval(getValue('dicount_price'));
+			$discount_price_name = trim(getValue('discount_price_name'));
+			$last_updater = trim(getValue('last_updater'));
+			$default_image = trim(getValue('default_image', 1));
+			
+			$category_id = intval(getValue('category_id'));
+			$category_type = trim(getValue('category_type', 0));
+			$product_order = trim(getValue('product_order', 0));
+			
+			$arr_input = array();
+			$arr_input['name'] = $name;
+			$arr_input['stock'] = $stock;
+			$arr_input['description'] = $description;
+			$arr_input['pack_list'] = $pack_list;
+			$arr_input['status'] = $status;
+			$arr_input['service'] = $service;
+			$arr_input['channel_code'] = $channel_code;
+			$arr_input['products_spec'] = $products_spec;
+			$arr_input['original_price'] = $original_price;
+			$arr_input['original_price_name'] = $original_price_name;
+			$arr_input['use_price'] = $use_price;
+			$arr_input['use_price_name'] = $use_price_name;
+			$arr_input['dicount_price'] = $dicount_price;
+			$arr_input['discount_price_name'] = $discount_price_name;
+			$arr_input['last_updater'] = $last_updater;
+			$arr_input['default_image'] = $default_image;
+			$arr_input['category_id'] = $category_id;
+			$arr_input['category_type'] = $category_type;
+			$arr_input['product_order'] = $product_order;
+			//print_r($arr_input);
+			
+			$obj_product = new Product();
+			$result = $obj_product->addProduct($arr_input);
+			if($result) {
+				header("Location:/product");
+			}
+		}
+		
+	}
+	
+	public function modifyAction () {
+		if(!isSubmit('isProductSubmit')){
+			
+			$product_id = trim(getValue('id'));
+			$this->assign('page', Product::viewProduct($product_id));
+			$this->assign('cate', Product::getProductCate($product_id));
+			$this->view('product/edit.html');
+			
+		} else {
+			
+			$arr_input = array();
+			$arr_input['id'] = trim(getValue('id'));
+			$arr_input['name'] = trim(getValue('name'));
+			$arr_input['stock'] = trim(getValue('stock'));
+			$arr_input['description'] = trim(getValue('description'));
+			$arr_input['pack_list'] = trim(getValue('pack_list'));
+			$arr_input['status'] = intval(getValue('status'));
+			$arr_input['service'] = trim(getValue('service'));
+			$arr_input['channel_code'] = trim(getValue('channel_code'));
+			$arr_input['products_spec'] = trim(getValue('products_spec'));
+			$arr_input['original_price'] = intval(getValue('original_price'));
+			$arr_input['original_price_name'] = trim(getValue('original_price_name'));
+			$arr_input['use_price'] = intval(getValue('use_price'));
+			$arr_input['use_price_name'] = trim(getValue('use_price_name'));
+			$arr_input['dicount_price'] = intval(getValue('dicount_price'));
+			$arr_input['discount_price_name'] = trim(getValue('discount_price_name'));
+			$arr_input['last_updater'] = trim(getValue('last_updater'));
+			$arr_input['default_image'] = trim(getValue('default_image', 1));
+			$arr_input['category_id'] = intval(getValue('category_id'));
+			$arr_input['category_type'] = trim(getValue('category_type', 0));
+			$arr_input['product_order'] = trim(getValue('product_order', 0));
+			
+			$obj_product = new Product();
+			$result = $obj_product->modifyProduct($arr_input);
+			
+			if($result){
+				header("Location:/product?action=modifyAction&id=" . $arr_input['id']);
+			}
+			
+		}
+	}
+}
+?>

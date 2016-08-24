@@ -1,0 +1,127 @@
+<?php /* Smarty version 2.6.26, created on 2012-12-04 11:13:41
+         compiled from category/index.html */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'category/index.html', 13, false),)), $this); ?>
+<!-- AdminBreadCrumbs start -->
+<div id="AdminBreadCrumbs">
+	<span class="orange shadow">管理后台</span> <span>&gt;</span>
+	<span class="subnav"><a class="shadow" href="/category" onclick="getLinkAdmin('category');return false;">分类列表</a></span>
+</div>
+<!-- AdminBreadCrumbs end -->
+
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1>分类列表</h1>
+				<a class="v13-button-secondary fl" href="/category?action=addAction<?php if ($_GET['parentid'] > 0): ?>&parentid=<?php echo ((is_array($_tmp=@$_GET['parentid'])) ? $this->_run_mod_handler('default', true, $_tmp, -1) : smarty_modifier_default($_tmp, -1)); ?>
+<?php endif; ?>">
+					<span class="v13-icon-add"></span>添加新分类
+				</a>
+			</div>
+			<br />
+			<div class="datatable">
+				<div class="datatableHeader">
+					<div class="fl headertext filter">
+						<label>过滤：</label>
+						<select onchange="OnSelectBoxValueChanged(this);">
+							<option value="">请选择</option>
+							<option value="Products">选项一</option>
+							<option value="Products_LowInventory">选项一</option>
+							<option value="Products_ToPurchase">选项一option>
+						</select>
+					</div>
+					
+					<div class="headertext paging">
+						<div class="limit fl">每页显示
+							<select id="limit" name="limit" class="inputbox" size="1" onchange="submitform();">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20" selected="selected">20</option>
+								<option value="25">25</option>
+								<option value="30">30</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+								<option value="0">所有</option>
+							</select>
+							<div class="limit"></div>
+							<input type="hidden" name="limitstart" value="0" />
+						</div>
+						
+						
+						<div class="results-text">
+							当前结果 <span class="results-range">1</span> - <span class="results-range">25</span> 共 <span class="results-range">72 个&nbsp;|&nbsp;</span>
+							页码
+							<input type="submit" style="display:none;" id="btnSubmitPage">
+							<input type="text" maxlength="5" id="Page" name="Page" style="width:20px; position: relative; top: -2px" value="1">
+							/ 3
+						</div>
+				        <span class="v13-combobutton-secondary"><a class="notext" href="##"><span class="v13-icon-previous">previous</span></a><a class="notext" href="##"><span class="v13-icon-next">next</span></a></span>
+					</div>
+					
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="120" />
+							<col width="200" />
+							<col width="auto" />
+							<col width="100" />
+							<col width="200" />
+							<col width="200" />
+							<col width="150" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th class="tc">图标</th>
+								<th>分类名称</th>
+								<th>描述</th>
+								<th class="tc">状态</th>
+								<th>创建时间</th>
+								<th>更新时间</th>
+								<th>操作</th>
+							</tr>
+							<?php $_from = $this->_tpl_vars['assign']['page']['items']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['key'] => $this->_tpl_vars['item']):
+?>
+							<tr>
+								<td class="tc"><input type="checkbox" name="pcroduct" value="<?php echo $this->_tpl_vars['item']['id']; ?>
+"/></td>
+								<td class="tc"><?php if ($this->_tpl_vars['item']['id']): ?><?php echo $this->_tpl_vars['item']['id']; ?>
+<?php else: ?>未知<?php endif; ?></td>
+								<td class="tc"><img src="/uploadfile/img/product_mini_1.jpg"></td>
+								<td><a href="category?parentid=<?php echo $this->_tpl_vars['item']['id']; ?>
+"><?php echo $this->_tpl_vars['item']['name']; ?>
+</a></td>
+								<td><?php echo $this->_tpl_vars['item']['description']; ?>
+</td>
+								<td class="tc"><?php if ($this->_tpl_vars['item']['status'] && $this->_tpl_vars['item']['status'] == 1): ?>正常<?php else: ?>下线<?php endif; ?></td>
+								<td><?php echo $this->_tpl_vars['item']['create_time']; ?>
+</td>
+								<td><?php echo $this->_tpl_vars['item']['update_time']; ?>
+</td>
+								<td>
+									<a href="#">编辑</a>
+									<a href="#">查看</a>
+									<a href="#">删除</a>
+								</td>
+							</tr>
+							<?php endforeach; endif; unset($_from); ?>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+	</div>

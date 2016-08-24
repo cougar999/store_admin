@@ -1,0 +1,437 @@
+<?php
+class AdminProductController extends AdminController{
+		
+	public function __construct(){
+		$this->template_info = true;
+		$this->count = 20;
+		parent::__construct();
+	}
+	
+	public function initAction() {
+		$pageno = intval(getValue('pageno',1));
+		$page = Product::getPageList($pageno);
+		foreach($page['items'] as $key => $row){
+			$page['items'][$key]['original_price']	 = mathOutPrice($row['original_price']);
+			$page['items'][$key]['use_price']		 = mathOutPrice($row['use_price']);
+			$page['items'][$key]['dicount_price']	 = mathOutPrice($row['dicount_price']);
+			
+			$parentid = Product::getProductCate($row['id']);
+			if(!empty($parentid)){
+				if(-1 == $parentid['category_id']) $page['items'][$key]['product_class'] = array(array('id'=>'-1','name'=>'顶级分类'));
+				else{
+					$page['items'][$key]['product_class'] = Category::getCategoryPageTitle($parentid['category_id']);
+					$page['items'][$key]['product_class'] = array_reverse($page['items'][$key]['product_class']);
+				}
+			}else{
+				unset($page['items'][$key]);
+			}
+		}
+		$this->assign('page', $page);
+		$this->view('product/index.html');
+	}
+	
+	public function addAction() {
+		if(!isSubmit('isProductSubmit')){
+			$this->view('product/add.html');
+		} else {
+			
+			$name = trim(getValue('name'));
+			$stock = trim(getValue('stock'));
+			$title = trim(getValue('title'));
+			$description = trim(getValue('description'));
+			$ext_desc = trim(getValue('ext_desc'));
+			$pack_list = trim(getValue('pack_list'));
+			$status = intval(getValue('status'));
+			$service = trim(getValue('service'));
+			$chncode = isSubmit("chncode") ? trim(getValue('chncode')) : $this->chncode;
+			$product_spec = trim(getValue('product_spec'));
+			$original_price = mathInPrice(getValue('original_price'));
+			$original_price_name = trim(getValue('original_price_name'));
+			$use_price = mathInPrice(getValue('use_price'));
+			$use_price_name = trim(getValue('use_price_name'));
+			$dicount_price = mathInPrice(getValue('dicount_price'));
+			$discount_price_name = trim(getValue('discount_price_name'));
+			$last_updater = trim(getValue('last_updater'));
+			
+			$category_id = intval(getValue('category_id'));
+			$category_type = trim(getValue('category_type', 0));
+			$product_order = trim(getValue('product_order', 0));
+			
+			$arr_input = array();
+			$arr_input['name'] = $name;
+			$arr_input['stock'] = $stock;
+			$arr_input['title'] = $title;
+			$arr_input['description'] = $description;
+			$arr_input['ext_desc'] = $ext_desc;
+			$arr_input['pack_list'] = $pack_list;
+			$arr_input['status'] = $status;
+			$arr_input['service'] = $service;
+			$arr_input['chncode'] = $chncode;
+			$arr_input['product_spec'] = $product_spec;
+			$arr_input['original_price'] = $original_price;
+			$arr_input['original_price_name'] = $original_price_name;
+			$arr_input['use_price'] = $use_price;
+			$arr_input['use_price_name'] = $use_price_name;
+			$arr_input['dicount_price'] = $dicount_price;
+			$arr_input['discount_price_name'] = $discount_price_name;
+			$arr_input['last_updater'] = $last_updater;
+			$arr_input['default_image'] = $default_image;
+			$arr_input['category_id'] = $category_id;
+			$arr_input['category_type'] = $category_type;
+			$arr_input['product_order'] = $product_order;
+			$arr_input['locate_type'] = trim(getValue('locate_type', 1));
+			$arr_input['default_image'] = trim(getValue('default_image'));
+			
+			if(!empty($_FILES['default_image']['name'])) {
+				$obj_img = new Image();
+				$arr_input['url'] = $obj_img->uploadFile($_FILES['default_image']); 
+			}
+			
+			$obj_product = new Product();
+			
+			//$image = $obj_product->addImage($arr_input);
+			//echo $arr_input['default_image'];
+			
+			$result = $obj_product->addProduct($arr_input);
+			
+			if($result) {
+				
+				$img_input['product_id'] = $result;
+				$img_input['type'] = intval(getValue('img_type',1));//必填
+				$img_input['locate_type'] = intval(getValue('locate_type',1)); //必填
+				$img_input['description'] = trim(getValue('img_desc',1));
+				$img_input['order'] = intval(getValue('img_order',0)); //必填
+				$img_input['name'] = trim(getValue('img_name'));
+				$img_input['url'] = trim(getValue('img_url'));
+				$img_input['img_id'] = getValue('img_id');
+				
+				$image = Product::updateImage($img_input);
+				if ($image){
+					//header("Location:/product");//返回列表页
+					header("Location:/product?action=modifyAction&id=" .$result ."#uploadimg");
+					//header("Location:/product?action=addAction&id=" .$result ."#uploadimg"); //返回添加页
+				}
+			}
+		}
+		
+	}
+	
+	public function modifyAction () {
+		if(!isSubmit('isProductSubmit')){
+			
+			$product_id = trim(getValue('id'));
+			$page = Product::viewProduct($product_id);
+			$page['original_price']	 = mathOutPrice($page['original_price']);
+			$page['use_price']		 = mathOutPrice($page['use_price']);
+			$page['dicount_price']	 = mathOutPrice($page['dicount_price']);
+			$this->assign('page', $page);
+			$this->assign('cate', Product::getProductCate($product_id));
+			$this->assign('attrvalue', Product::getProductAttrValue($product_id));
+			$a_cross = Product::getProductCross($this->get('attrvalue'), Product::getProductAttrCross($product_id));
+			foreach ($a_cross as $key => $row){
+				$a_cross[$key]['price'] = mathOutPrice($row['price']);
+			}
+			$this->assign('cross', $a_cross);
+			$this->assign('images', Product::getImageAllListByProductId($product_id));
+			
+			$this->view('product/edit.html');
+			
+		} else {
+			
+			$arr_input = array();
+			$arr_input['id'] = intval(getValue('id'));
+			$arr_input['name'] = trim(getValue('name'));
+			$arr_input['stock'] = trim(getValue('stock'));
+			$arr_input['title'] = trim(getValue('title'));
+			$arr_input['description'] = trim(getValue('description'));
+			$arr_input['ext_desc'] = trim(getValue('ext_desc'));
+			$arr_input['pack_list'] = trim(getValue('pack_list'));
+			$arr_input['status'] = intval(getValue('status'));
+			$arr_input['service'] = trim(getValue('service'));
+			$arr_input['chncode'] = isSubmit("chncode") ? trim(getValue('chncode')) : $this->chncode;
+			$arr_input['product_spec'] = trim(getValue('product_spec'));
+			$arr_input['original_price'] = mathInPrice(getValue('original_price'));
+			$arr_input['original_price_name'] = trim(getValue('original_price_name'));
+			$arr_input['use_price'] = mathInPrice(getValue('use_price'));
+			$arr_input['use_price_name'] = trim(getValue('use_price_name'));
+			$arr_input['dicount_price'] = mathInPrice(getValue('dicount_price'));
+			$arr_input['discount_price_name'] = trim(getValue('discount_price_name'));
+			$arr_input['last_updater'] = trim(getValue('last_updater'));
+			$arr_input['default_image'] = trim(getValue('default_image'));
+			$arr_input['category_id'] = intval(getValue('category_id'));
+			$arr_input['category_type'] = trim(getValue('category_type', 0));
+			$arr_input['product_order'] = trim(getValue('product_order', 0));
+			
+			$obj_product = new Product();
+			
+			$result = $obj_product->modifyProduct($arr_input);
+			
+			$attrvalids_list = getValue('attribute_value_ids');
+			$attrx_product_stock_list = getValue('attrx_product_stock');
+			$attrx_product_price_list = getValue('attrx_product_price');
+			$attrx_product_desc_list = getValue('attrx_product_desc');
+			if ($attrvalids_list) {
+				$obj_comb = new Combination();
+				foreach ($attrvalids_list as $key => $attrvalid) {
+					if ($attrvalids_list[$key] && ($attrx_product_price_list[$key] || $attrx_product_stock_list[$key] || $attrx_product_desc_list[$key])) {
+						$arr_comb = $obj_comb->idsexist($arr_input['id'], $attrvalid);
+						if ($arr_comb) {
+							$arr_comb['product_stock'] = $attrx_product_stock_list[$key];
+							$arr_comb['price'] = mathInPrice($attrx_product_price_list[$key]);
+							$arr_comb['title'] = $attrx_product_desc_list[$key];
+							//var_dump($arr_comb);exit;
+							$result_comb = $obj_comb->modify($arr_comb);
+						} else {
+							$arr_comb = array();
+							$arr_comb['product_id'] = $arr_input['id'];
+							$arr_comb['attribute_value_ids'] = $attrvalids_list[$key];
+							$arr_comb['product_stock'] = $attrx_product_stock_list[$key];
+							$arr_comb['price'] = mathInPrice($attrx_product_price_list[$key]);
+							$arr_comb['title'] = $attrx_product_desc_list[$key];
+							$result_comb = $obj_comb->add($arr_comb);
+						}
+					}
+				}
+			}
+			if($result){
+				$detail = self::setMemoryData($arr_input['id']);
+				if(!Validate::isUpdateCache($detail)){
+					$url = '/product?action=modifyAction&id=' . $arr_input['id'];
+					echo '<!DOCTYPE html><html><head><meta charset="utf-8"><script language="javascript">alert("缓存更新失败!");window.location.href = "'. $url .'";</script></head><body></body></html>';
+				}else{
+					self::setMemcacheProductIndex($arr_input['id']);
+					//更新对应节点，如果商品下线，对应节点也都必须下线
+					if(0 == intval(getValue('status'))){
+						$content_id = intval(getValue('id'));
+						$arr_node_ids = Node::downNodeByContentId($content_id);
+						if(count($arr_node_ids) > 0){
+							foreach ($arr_node_ids as $node_id){
+								$result_node_cache = AdminNodeController::setMemoryData($node_id);
+							}
+							AdminNodeController::setMemoryAll();
+						}
+					}
+					/*elseif(1 == intval(getValue('status'))){
+						$content_id = intval(getValue('id'));
+						$arr_node_list = Node::getNodeByContentId($content_id);
+						if(count($arr_node_list) > 0){
+							$this->assign('node_list' , $arr_node_list);
+							$this->view('cache_product_node.tpl' , 'layout_block.html');
+							exit;	
+						}
+					}*/
+					header("Location:/product");
+					//header("Location:/product?action=modifyAction&id=" . $arr_input['id']);
+				}
+			}
+		}
+	}
+	
+	public function UploadimgAjax () {
+		$obj_img = new Image();
+		$url = $obj_img->uploadFile($_FILES['default_image']);
+		
+		//添加图片
+		$img_input['product_id'] = intval(getValue('product_id'));
+		$img_input['type'] = intval(getValue('img_type',1));//必填
+		$img_input['locate_type'] = intval(getValue('locate_type',1)); //必填
+		$img_input['description'] = trim(getValue('img_desc',1));
+		$img_input['order'] = intval(getValue('img_order',0)); //必填
+		$img_input['name'] = trim(getValue('img_name'));
+		$img_input['url'] = $url;
+		
+		$image = Product::addImage($img_input);
+
+		$arr_input = array();
+		$imageInfo['img_id'] = DB::getInsertId();
+		$imageInfo['img_url'] = $url;
+		$imageInfo['product_id'] = intval(getValue('product_id'));
+		
+		echo json_encode($imageInfo);
+		//echo $url;
+	}
+	
+	
+	//产品编辑页，弹出属性页面
+	public function getCombbyAjax() {
+			
+		$product_id = intval(getValue('product_id'));
+		
+		if(!isSubmit('isAttrValueSubmit')){
+			
+			$attr = Attribute::getAttributeAllList($product_id);
+			$product_attr = Combination::getProductAttrValueListByProductId($product_id);
+			
+			unset($attrid);
+			unset($arr_hash_values);
+			foreach ($attr as $row){
+				$attrid[] = $row['id'];
+				$arr_hash_values[$row['id']]['name'] = $row['name'];
+			}
+			$arr_values = Attribute::getAttriValueList($attrid);
+			foreach ($arr_values as $rows){
+				foreach ($rows as $row){
+					$arr_hash_values[$row['attribute_id']]['attr_values'][$row['id']]['value'] = $row['value'];
+					$arr_hash_values[$row['attribute_id']]['attr_values'][$row['id']]['is_exist'] = in_array($row['id'], $product_attr) ? 1 : 0;
+				}
+			}
+			
+			$this->assign('attr', $arr_hash_values);
+			$this->assign('product_value', $product_attr);
+			$this->view('product/comblist.html','layout_block.html');
+			
+		} else {
+			
+			$attribute_id_list = getValue('attribute_id');
+			$values_list = getValue('attrvalue');
+			
+			$arr_input = array();
+			$arr_input['attr_values'] 	= $values_list;
+			$arr_input['product_id'] 	= $product_id;
+			
+			$result = Combination::addBatch($arr_input);
+			if($result) {
+				echo "<script>parent.$.colorbox.close();parent.window.location.reload(parent.location.href);</script>";
+			} else {
+				echo "<script>parent.$.colorbox.close();parent.window.location.reload(parent.location.href);</script>";
+			}
+		}
+	}
+	
+	public function delAction(){
+		$arr_input = Array();
+		$arr_input['id'] = trim(getValue('id'));
+		
+		$obj_pro = new Product();
+		$result = $obj_pro->deleteProduct($arr_input);
+		
+		if($result){
+			$detail = self::setMemoryData($arr_input['id']);
+			if(!Validate::isUpdateCache($detail)){
+				$url = '/product';
+				echo '<!DOCTYPE html><html><head><meta charset="utf-8"><script language="javascript">alert("缓存更新失败!");window.location.href = "'. $url .'";</script></head><body></body></html>';
+			}else
+				self::setMemcacheProductIndex($arr_input['id']);
+				header("Location:/product");
+		} else {
+			return false;
+		}
+	}
+	
+	public function delimgAction(){
+		$imgid =  intval(getValue('imgid'));
+		$product_id = intval(getValue('product_id'));
+		
+		$obj_pro = new Product();
+		$result = $obj_pro->delImage($imgid, $prouct_id);
+		
+		if($result){
+			header("Location:/product?action=modifyAction&id=" .$product_id);
+		} else {
+			return false;
+		}
+	}
+	
+	public function setMemorydata($product_id = 0){
+		if($product_id == 0){
+			$product_id = intval(getValue("id"));
+		}
+		$data['product'] = Product::viewProduct($product_id);
+		$data['product']['default_image'] = empty($data['product']['default_image']) ? '' : PIC_PATH . $data['product']['default_image'];
+		$category_info = Product::getProductCate($product_id);
+		$data['product']['cat_id'] = $category_info['category_id'];
+		$data['attribute']	 = Product::getProductAttrValue($product_id);
+		
+		$data['cross']		 = Product::getProductCross($data['attribute'] , Product::getProductAttrCross($product_id));
+		foreach ($data['cross'] as $key => $row){
+			unset($data['cross'][$key][item]);
+		}
+		foreach ($data['cross'] as $key => $row){
+			if(!$row)
+				unset($data['cross'][$key]);
+		}
+		$data['images']		 = Product::getImageAllListByProductId($product_id);
+		foreach ($data['images'] as $key => $row){
+			$data['images'][$key]['url'] = empty($row['url']) ? '' : PIC_PATH . $row['url'];
+		}
+		
+		foreach ($data as $key => $row){
+			$data[$key] = json_encode($row,JSON_FORCE_OBJECT);
+		}
+		$detail = ap_core_post("PRODUCT_UPDATE_CACHE",$data);
+		
+		if (isSubmit('ajax')){
+			die($detail);
+		}else{
+			return $detail;
+		}
+	}
+	
+	public function setMemcacheProductIndex($ids = ''){
+		if(!$ids){
+			$ids = trim(getValue('ids'));
+		}
+		$data['pids'] = $ids;
+		$detail = ap_core_post("PRODUCT_INDEX_UPDATE_CACHE" , $data);
+		if (isSubmit('ajax')){
+			die($detail);
+		}else{
+			return $detail;
+		}
+	}
+	
+	public function searchAction(){
+		$o_product 	         = new Product();
+		$o_product->count    = $this->count;
+		$_REQUEST['chncode'] = isSubmit("chncode") ? trim(getValue('chncode')) : $this->chncode;
+		$_REQUEST['chncode'] = "[*chncode*]='{$_REQUEST['chncode']}'";
+		$page 	   	         = $o_product->getProductInfo($_REQUEST);
+		foreach($page['items'] as $key => $row){
+			$page['items'][$key]['original_price']	 = mathOutPrice($row['original_price']);
+			$page['items'][$key]['use_price']		 = mathOutPrice($row['use_price']);
+			$page['items'][$key]['dicount_price']	 = mathOutPrice($row['dicount_price']);
+		}
+		$this->assign('page', $page);
+		!getValue('block')?$this->view('product/index.html'):$this->view('product/product_list.html','layout_block.html');
+	}
+	
+	public function getProductListAjax() {
+		$this->view('product/product_list.html','layout_block.html');
+	}
+	
+	public function updateCacheAll(){
+		$arr_all_list = Product::getAllProductsList();
+		
+		die(json_encode($arr_all_list));
+	}
+	
+	//点击上线下线直接改变状态
+	public function changeStatus(){
+		$act = trim(getValue('status'));
+		$id = trim(getValue('id'));
+		
+		$obj_product = new Product();
+		$result = $obj_product->updownProduct($id, $act);
+		
+		echo $result;
+	}
+	
+	//批量修改状态
+	public function multiProductAction() {
+		$pid = intval(getValue('parentid',-1));
+		$act = trim(getValue('statusOrder'));
+		$ids = getValue('productids');
+		$action = trim(getValue('actionOrder'));
+		$url = getFromUrl('');
+		
+		if($action == 'updownProductFlag') {
+			$obj_product = new Product();
+			$result = $obj_product->updownProduct($ids, $act);
+		}
+		if ($result){
+			header("Location:" .$url);
+		}
+	}
+	
+}
+?>

@@ -1,0 +1,192 @@
+<?php
+class Promote{
+	public function getPageList($pageno = 1){
+		$total_count = self::getPromoteListCount();
+		if($total_count > 0){
+			$start_num = ($pageno-1) * $this->count;
+			$limit_query = "limit " . $start_num . " , " . $this->count;
+			$arr_promote_list = self::getPromoteList('' , $limit_query);
+		}else{
+			$arr_promote_list = array();
+		}
+		
+		unset($arr_output);
+		$arr_output['total_count']		 = $total_count;
+		$arr_output['count']			 = $this->count;
+		$arr_output['pageno']			 = $pageno;
+		$arr_output['items']			 = $arr_promote_list;
+		
+		return $arr_output;
+	}
+	
+	public function getPromoteListCount($arr_input = ''){
+		$dbh = DB::get_db_reader();
+		$str_query = "select count(*) from pm_promote";
+		$str_query .= " where status >= 0";
+		if(!empty($arr_input)){
+			foreach ($arr_input as $key => $value)
+			$str_query .=" and $key = '{$value}'";
+		}
+		$arr_output = DB::selectQuery($str_query);
+		return $arr_output[0][0];
+	}
+	
+	public function getPromoteList($arr_input = '' , $limit_query = null){
+		$dbh = DB::get_db_reader();
+<<<<<<< .mine
+		$str_query = "select id,title,description,shoptype,prov_id,city_id,status from pm_promote";
+=======
+		$str_query = "select id,title,description,shoptype,prov_id,city_id,create_time,update_time from pm_promote";
+>>>>>>> .r12115
+		$str_query .= " where status >= 0";
+		
+		if ($limit_query != null) {
+			$str_query .= ' '.$limit_query;
+		}
+		
+		$arr_output = DB::selectQueryAssoc($str_query);
+		return $arr_output;
+	}
+	
+	public function addPromote($arr_input){
+		$dbh = DB::get_db_writer();
+		$date = DB::currentTime();
+		
+		$str_query .= "insert into";
+		$str_query .= " pm_promote";
+		$str_query .= " set";
+		$str_query .= " create_time = '{$date}'";
+		$str_query .= ", chncode = '{$arr_input['chncode']}'";
+		$str_query .= ", title = '{$arr_input['title']}'";
+		$str_query .= ", description = '{$arr_input['description']}'";
+		$str_query .= ", content = '{$arr_input['content']}'";
+		$str_query .= ", shoptype = {$arr_input['shoptype']}";
+		$str_query .= ", prov_id = {$arr_input['prov_id']}";
+		$str_query .= ", city_id = {$arr_input['city_id']}";
+		$str_query .= ", status = {$arr_input['status']}";
+		
+		$result = DB::executeQuery($str_query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function modifyPromote($arr_input){
+		$dbh = DB::get_db_writer();
+		$date = DB::currentTime();
+		
+		$str_query .= "update";
+		$str_query .= " pm_promote";
+		$str_query .= " set";
+		$str_query .= " update_time = '{$date}'";
+		if (array_key_exists('chncode', $arr_input)) {
+			$str_query .= ", chncode='{$arr_input['chncode']}'";
+		}
+		if (array_key_exists('title', $arr_input)) {
+			$str_query .= ", title='{$arr_input['title']}'";
+		}
+		if (array_key_exists('description', $arr_input)) {
+			$str_query .= ", description='{$arr_input['description']}'";
+		}
+		if (array_key_exists('content', $arr_input)) {
+			$str_query .= ", content='{$arr_input['content']}'";
+		}
+		if (array_key_exists('shoptype', $arr_input)) {
+			$str_query .= ", shoptype={$arr_input['shoptype']}";
+		}
+		if (array_key_exists('prov_id', $arr_input)) {
+			$str_query .= ", prov_id={$arr_input['prov_id']}";
+		}
+		if (array_key_exists('city_id', $arr_input)) {
+			$str_query .= ", city_id={$arr_input['city_id']}";
+		}
+		if (array_key_exists('status', $arr_input)) {
+			$str_query .= ", status={$arr_input['status']}";
+		}
+		$str_query .= " where id = {$arr_input['id']}";
+		
+		$result = DB::executeQuery($str_query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function deletePromote($ids){
+		$dbh = DB::get_db_writer();
+		
+		if(is_array($ids)){
+			$str_ids = join(" or id = " , $ids);
+		}else{
+			$str_ids = $ids;
+		}
+		
+		$str_query = "update pm_promote"
+					." set"
+					." status = -1"
+					." where"
+					." id  = {$str_ids}";
+		
+		return DB::executeQuery($str_query);
+	}
+	
+	public function addLinkPromShop($arr_input){
+		$dbh = DB::get_db_writer();
+		$date = DB::currentTime();
+		
+		$str_query .= "insert into";
+		$str_query .= " pm_link_prom_shop";
+		$str_query .= " set";
+		$str_query .= " create_time= ".CURRENT_TIME;
+		$str_query .= ", chncode='{$arr_input['chncode']}'";
+		$str_query .= ", prom_id={$arr_input['prom_id']}";
+		$str_query .= ", shop_id={$arr_input['shop_id']}";
+		$str_query .= ", status={$arr_input['status']}";
+		
+		$result = DB::executeQuery($str_query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function deleteLinkPromShop($promid , $shopid = null){
+		$dbh = DB::get_db_writer();
+		
+		$str_query = "update pm_link_prom_shop"
+					." set"
+					." status = -1"
+					." where"
+					." prom_id  = {$promid}";
+		if($shopid != null)
+			$str_query .= " and shop_id  = {$shopid}";
+		
+		return DB::executeQuery($str_query);
+	}
+	
+	public function addPromLink($arr_input){
+		$dbh = DB::get_db_writer();
+		$date = DB::currentTime();
+		
+		$str_query .= "insert into";
+		$str_query .= " pm_prom_link";
+		$str_query .= " set";
+		$str_query .= " create_time = '{$date}'";
+		$str_query .= ", chncode = '{$arr_input['chncode']}'";
+		$str_query .= ", prom_id = {$arr_input['prom_id']}";
+		$str_query .= ", content_id = {$arr_input['content_id']}";
+		$str_query .= ", type = {$arr_input['type']}";
+		$str_query .= ", status = {$arr_input['status']}";
+		
+		$result = DB::executeQuery($str_query);
+		if($result){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}

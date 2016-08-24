@@ -1,0 +1,103 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<h1 class="fl intitle">商品列表</h1>
+					<!--{include file='search_product.tpl'}-->
+					<div class="ctrlbar fr">
+						<a class="v13-button-secondary fl" href="/product?action=addAction">
+							<span class="v13-icon-add"></span>添加商品
+						</a>
+						<a class="v13-button-secondary fl updateCacheAll" rel="product" href="/product?action=updateCacheAll">
+							<span class="v13-icon-cache"></span>更新缓存
+						</a>
+					</div>
+				</div>
+				
+				<form action="/product?action=multiProductAction" method="post" onsubmit="" id="ChangeMultiForm">
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="40" />
+							<col width="60" />
+							<col width="86" />
+							<col width="auto" />
+							<col width="auto" />
+							<col width="80" />
+							<col width="80" />
+							<col width="150" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th>图片</th>
+								<th class="tc">名称</th>
+								<th>所属分类</th>
+								<th class="tc">状态</th>
+								<th class="tc">库存</th>
+								<th>价格</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><input type="checkbox" name="productids[]" value="<!--{$item.id}-->"/></td>
+								<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+								<td class="tc">
+									<div class="imgbg">
+										<img src="<!--{$item.default_image}-->" style="width:auto;height:48px;background:url(/resources/images/transparent.gif) no-repeat center center">
+									</div>
+								</td>
+								<td>
+									<a href="/product?action=modifyAction&id=<!--{$item.id}-->"><!--{$item.name}--></a>
+									<span class="ctrlpanel">
+										<a href="/product?action=modifyAction&id=<!--{$item.id}-->"><img src="/resources/images/icon_edit3.png" alt="编辑" title="编辑"/></a>
+										<a href="/product?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除商品“<!--{$item.name}-->?”'))return false;"><img src="/resources/images/icon_trash3.png" title="删除"/></a>
+										<a href="/product?action=setMemoryData&id=<!--{$item.id}-->" title="<!--{$item.name}-->" class="update_cache no"><img src="/resources/images/admin/quick.gif" title="更新缓存"/></a>
+									</span>
+								</td>
+								<td>
+								<!--{foreach key=cls_key item=cls_item from=$item.product_class}-->
+								&nbsp;&nbsp;<!--{if 0 < $cls_key}-->>&nbsp;&nbsp;<!--{/if}--><a href="/category?parentid=<!--{$cls_item.id}-->"><!--{$cls_item.name}--></a>
+								<!--{/foreach}-->
+								</td>
+								<td class="tc"><!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 1,'product', this)">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus(<!--{$item.id}-->, 0, 'product', this)">下线</a><!--{/if}--></td>
+								<td class="tc"><!--{$item.stock}--></td>
+								<td>
+									<!--{if $item.original_price_name}-->
+										<!--{$item.original_price_name}-->：<!--{$item.original_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.use_price_name}-->
+										<!--{$item.use_price_name}-->：<!--{$item.use_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.dicount_price_name}-->
+										<!--{$item.dicount_price_name}-->：<!--{$item.dicount_price}-->
+									<!--{/if}-->	
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				<div class="btns">
+					<input type="button" value="批量下线" name="updownProduct" updownparas="1" onclick="changeMulti(this, 'updownProductFlag');return false;" class="updownOperate" />
+					<input type="button" value="批量上线" name="updownProduct" updownparas="0" onclick="changeMulti(this, 'updownProductFlag');return false;" class="updownOperate"  />
+					<input type="hidden" value="" name="actionOrder" id="actionCur" />
+					<input type="hidden" value="" name="statusOrder" id="statusCur" />
+				</div>
+				</form>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+		</div>
+	</div>
+<!-- content end -->

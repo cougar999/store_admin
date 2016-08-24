@@ -1,0 +1,33 @@
+<!-- content start -->
+<div id="wrapper">
+	<div id="content">
+		<div class="clearfix">
+			<h1>添加分类</h1>
+		</div>
+		<form method="post"  action="">
+			<fieldset>
+				<legend>分类 -- 添加分类</legend>
+				<table id="tableviewer" border="0" class="formtable">
+					<tr>
+						<th>父分类：</th><td><span id="category_pid"></span></td>
+					</tr>
+					<tr>
+						<th>名称：</th><td><input type="text" name="name"><td>
+					</tr>
+					<tr>
+						<th>描述：</th><td><textarea name="description"></textarea><td>
+					</tr>
+					<tr>
+						<th>图标：</th><td><input type="file" name="icon" multiple="multiple"><td>
+					</tr>
+					<tr>
+						<th>状态：</th><td><select name="status"><option value="1">上线</option><option value="0">下线</option></select><td>
+					</tr>
+					<tr><td colspan="2"><input type="submit" value="添加分类"><input type="hidden" name="isCategorySubmit" value="1"></td></tr>
+				</table>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<script language="javascript">
+</script>

@@ -1,0 +1,79 @@
+<!-- content start -->
+<div id="wrapper">
+	<div id="content">
+		<div class="datatable">
+			<!--{if $assign.detail_list}-->
+			<div class="datatableHeader">
+				<div class="fl headertext filter">
+					<h1 class="fl intitle">订单详情</h1>
+					<span style="font:18px verdana, sans-serif;font-weight:bold;margin-top:10px;float:left;">订单号：<!--{$assign.info.order_no}--></span>
+				</div>
+			</div>
+			
+			<div id="TablePanel" class="datatablecontent">
+				<table id="tableviewer" width="100%" border="0">
+					<colgroup>
+						<col width="60" />
+						<!-- <col width="80" /> -->
+						<col width="auto" />
+						<col width="auto" />
+						<col width="auto" />
+						<col width="auto" />
+						<col width="170" />
+						<col width="170" />
+						<col width="170" />
+					</colgroup>
+					<tbody>
+						<tr class="title">
+							<th class="tc">
+								<input type="checkbox" name="selector" id="selector" />
+							</th>
+							<!-- <th class="tc">ID</th> -->
+							<th class="tc">商品ID</th>
+							<th class="tc">商品名称</th>
+							<th class="tc">商品单价</th>
+							<th class="tc">商品现价</th>
+							<th class="tc">购买数量</th>
+							<th class="tc">状态</th>
+							<th class="tc">创建时间</th>
+						</tr>
+						<!--{if $assign.detail_list}-->
+							<!--{foreach key=key item=item from=$assign.detail_list}-->
+							<tr>
+								<td class="tc"><input type="checkbox" name="pcroduct" value="<!--{$item.product_id}-->"/></td>
+								<td class="tc"><!--{$item.product_id}--></td>
+								<td><a href="/product?action=modifyAction&id=<!--{$item.product_id}-->"><!--{$item.product_name}--></a><!--{if $item.product_desc}-->&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">(<!--{$item.product_desc}-->)</span><!--{/if}--></td>
+								<td class="tc"><!--{$item.product_price}--></td>
+								<td class="tc"><!--{$item.product_cprice}--></td>
+								<td class="tc"><!--{$item.buy_num}--></td>
+								<td class="tc"><!--{$assign.arr_order_status[$item.status]}--></td>
+								<td><!--{$item.create_time}--></td>
+							</tr>
+							<!--{/foreach}-->
+							<tr>
+								<th colspan="3" style="height:40px;">合计</th>
+								<th class="tc"><!--{$assign.info.total_price}--></th>
+								<th class="tc"><!--{$assign.info.total_payment}--></th>
+								<th class="tc"><!--{$assign.info.product_num}--></th>
+								<th class="tc"><!--{$assign.arr_order_status[$assign.info.status]}--></th>
+								<th class="tc"><!--{$assign.info.create_time}--></th>
+							</tr>
+						<!--{else}-->
+							<tr>
+								<td colspan="9" class="tc">未找到内容</td>
+							</tr>
+						<!--{/if}-->
+					</tbody>
+				</table>
+			</div>
+			<div id="page">
+				<!--{include file='page.tpl'}-->
+			</div>
+			<!--{else}-->
+				<!--{include file='empty_warning.tpl'}-->
+			<!--{/if}-->
+			
+		</div>
+	</div>
+</div>
+<!-- content end -->

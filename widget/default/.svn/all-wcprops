@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/frontend/!svn/ver/12749/code/store_admin/trunk/widget/default
+END
+empty_warning.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/frontend/!svn/ver/12337/code/store_admin/trunk/widget/default/empty_warning.tpl
+END
+category_product_page_list.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/frontend/!svn/ver/12380/code/store_admin/trunk/widget/default/category_product_page_list.tpl
+END
+search_product.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/frontend/!svn/ver/12459/code/store_admin/trunk/widget/default/search_product.tpl
+END
+static.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/frontend/!svn/ver/12422/code/store_admin/trunk/widget/default/static.tpl
+END
+statistic.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/frontend/!svn/ver/12749/code/store_admin/trunk/widget/default/statistic.tpl
+END
+header.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/frontend/!svn/ver/12736/code/store_admin/trunk/widget/default/header.tpl
+END
+page.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/frontend/!svn/ver/12151/code/store_admin/trunk/widget/default/page.tpl
+END
+catelog.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/frontend/!svn/ver/11877/code/store_admin/trunk/widget/default/catelog.tpl
+END
+search_product_block.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/frontend/!svn/ver/12699/code/store_admin/trunk/widget/default/search_product_block.tpl
+END

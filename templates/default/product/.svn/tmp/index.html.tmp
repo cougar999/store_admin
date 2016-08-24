@@ -1,0 +1,96 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">商品列表</h1>
+				<div class="ctrlbar fr">
+					<a class="v13-button-secondary fl" href="/product?action=addAction">
+						<span class="v13-icon-add"></span>添加商品
+					</a>
+				</div>
+			</div>
+			<br />
+			
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<div class="fl headertext filter">
+						<label>过滤：</label>
+						<select onchange="OnSelectBoxValueChanged(this);">
+							<option value="">请选择</option>
+							<option value="Products">选项一</option>
+							<option value="Products_LowInventory">选项一</option>
+							<option value="Products_ToPurchase">选项一</option>
+						</select>
+					</div>
+					
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="100" />
+							<col width="auto" />
+							<col width="auto" />
+							<col width="100" />
+							<col width="80" />
+							<col width="300" />
+							<col width="100" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th>默认图片</th>
+								<th class="tc">名称</th>
+								<th>描述</th>
+								<th class="tc">状态</th>
+								<th class="tc">库存</th>
+								<th>价格</th>
+								<th>操作</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><input type="checkbox" name="product" value="<!--{$item.id}-->"/></td>
+								<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+								<td><img src="<!--{$item.default_image|default:"/resources/images/no-image.gif"}-->" style="width:auto;height:50px;"></td>
+								<td><a href="/product?action=modifyAction&id=<!--{$item.id}-->"><!--{$item.name}--></a></td>
+								<td><!--{$item.description}--></td>
+								<td class="tc"><!--{if $item.status && $item.status == 1}-->上线<!--{else}-->下线<!--{/if}--></td>
+								<td class="tc"><!--{$item.stock}--></td>
+								<td>
+									<!--{if $item.original_price_name}-->
+										<!--{$item.original_price_name}-->：<!--{$item.original_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.use_price_name}-->
+										<!--{$item.use_price_name}-->：<!--{$item.use_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.dicount_price_name}-->
+										<!--{$item.dicount_price_name}-->：<!--{$item.dicount_price}-->
+									<!--{/if}-->	
+								</td>
+								<td>
+									<a href="/product?action=modifyAction&id=<!--{$item.id}-->"><img src="/resources/images/admin/edit.gif" alt="编辑" title="编辑"/></a>
+									<a href="/product?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除商品“<!--{$item.name}-->?”'))return false;"><img src="/resources/images/admin/delete.gif" title="删除"/></a>
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+		</div>
+	</div>
+<!-- content end -->

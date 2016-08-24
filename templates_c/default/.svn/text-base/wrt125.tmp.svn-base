@@ -1,0 +1,20 @@
+<?php /* Smarty version 2.6.26, created on 2012-11-27 06:44:55
+         compiled from layout.html */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('function', 'config_load', 'layout.html', 1, false),)), $this); ?>
+<?php echo smarty_function_config_load(array('file' => "smarty.conf"), $this);?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh">
+	<head>
+		<title>爱皮电商后台管理系统</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="content">
+				<?php echo $this->_tpl_vars['page']; ?>
+
+			</div>
+		</div>
+	</body>
+	</html>

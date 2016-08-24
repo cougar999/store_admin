@@ -1,0 +1,232 @@
+/**
+ * 用于后台交互等操作的js文件
+ */
+
+function getCatelist(name){
+	$.post('/category',{action:"getChildList"},function(data){
+		var html_content = '<select name="' + name + '">';
+		html_content += '<option value="-1">--顶级分类--</option>';
+		for(var i = 0 ; i < data.length ; i++){
+			html_content += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+		}
+		html_content += '</select>';
+		$("#category_pid").html(html_content);
+	},'json');
+	return false;
+}
+
+function getCurrentCatelist() {
+	var pidd = $("#pidd").val();
+	$.post('/category',{action:"getChildList"},function(data){
+		var html_content = '<select name="category_id">';
+		html_content += '<option value="-1">--顶级分类--</option>';
+		for(var i = 0 ; i < data.length ; i++){
+			if (pidd == data[i].id) {
+				html_content += '<option value="' + data[i].id + '" selected="selected">' + data[i].name + '</option>';
+			} else {
+				html_content += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+			}
+			
+		}
+		html_content += '</select>';
+		$("#category_pid").html(html_content);
+	},'json');
+	return false;
+}
+
+function submitAttrValue(e) {
+	var attribute_value = $(e).siblings('#attribute_value').val();
+	var attribute_id = $(e).siblings('#attribute_id').val();
+
+	$.post('/attribute',{action:"addAttriValueAjax", attribute_value:attribute_value, attribute_id:attribute_id}, function(data){
+		if (data) {
+			//getAttrValueList(this, attribute_id, 'childAttrListUl');
+			var num = $(e).parent().siblings('.attrlink').find(".attrValueCount").html();
+			if (num) {
+				var count = parseFloat(num) + 1;
+				$(e).parent().siblings('.attrlink').find(".attrValueCount").html(count);
+				$(e).siblings(".attrAddState").text('添加成功').fadeIn().delay(2000).hide(200);
+				if ($(e).parent().siblings('.childAttrList').is(':hidden') == false) {
+					getAttrValueList(e, attribute_id, 'childAttrListUl');
+					$(e).parent().siblings('.childAttrList').slideToggle();
+				}
+			}
+		}
+	});
+	return false;
+}
+
+function getAttrValueList(d, i, e) {
+	if (i) {
+		var attribute_id = i;
+		$.post('/attribute',{action:"getAttriValueListAjax", attribute_id:attribute_id}, function(data){
+			if (!data) return;
+			if(d && e) {
+				$(d).parent().siblings('.childAttrList').slideToggle(200);
+				$(d).parent().siblings('.childAttrList').find("."+e).empty();
+			}
+			var data = JSON.parse(data);
+			$.each(data[attribute_id], function(n) {
+				var value = data[attribute_id][n].value;
+				var attribute_ids = data[attribute_id][n].attribute_id;
+				var id = data[attribute_id][n].id;
+				var html = '<li>';
+					html += '<input type="text" name="attrivalue_value" value="' + value + '" class="attrivalue_value" />';
+					html += '<input type="hidden" name="id_attribute_value" value="' + id + '" class="id_attribute_value" />';
+					html += '<input type="hidden" name="attribute_id" value="' + attribute_ids + '" class="attribute_id" />';
+					html += '<input type="submit" name="modifyAttrValue" value="修改" onclick="modifyAttrValue(this);return false;" class="modifyAttrValue" />';
+					html += '<input type="submit" name="delAttrValue" value="删除" onclick="delAttrValue(this);return false;" class="delAttrValue" />';
+					html += '<span class="wariningState no"></span>';
+					html += '</li>';
+				
+				if(d && e) {
+					$(d).parent().siblings('.childAttrList').find("."+e).append(html);
+				}
+				
+			});	
+		});
+	}
+	return false;
+}
+
+function modifyAttrValue(e){
+	var attrivalue_value = $(e).siblings('.attrivalue_value').val();
+	var attribute_id = $(e).siblings('.attribute_id').val();
+	var id_attribute_value = $(e).siblings('.id_attribute_value').val();
+	
+	$.post('/attribute',{action:"modifyAttriValueAjax", attribute_id:attribute_id, attrivalue_value:attrivalue_value, id_attribute_value:id_attribute_value }, function(data){
+		//console.log(data);
+		if(data) {
+			$(e).siblings('.wariningState').text('修改成功').fadeIn().delay(2000).hide(200);
+		} else {
+			$(e).siblings('.wariningState').text('修改失败，请稍候再试').fadeIn().delay(2000).hide(200);
+		}
+	});
+	return false;
+}
+
+//上传图片，返回文件后缀
+function GetExtName(pathfilename){
+	var reg = /(\\+)/g;
+	var pfn = pathfilename.replace(reg, "#");
+	var arrpfn = pfn.split("#");
+	var fn = arrpfn[arrpfn.length - 1];
+	var arrfn = fn.split(".");
+	return arrfn[arrfn.length - 1];
+}
+	
+function ajaxFileUpload(){
+	var ext = GetExtName($('#default_image').val());
+	if (ext && /^(jpg|jpeg|gif|png|bmp)$/.test(ext)) {
+		$("#loader").show();
+		try{
+			$.ajaxFileUpload({
+				url:'http://store.appdear.com/product?action=UploadimgAjax&product_id=' + GetQueryString('product_id'),
+				secureuri:false,
+				fileElementId:'default_image',
+				dataType: 'text',
+				success: function (data, status) {
+					$("#url").val(data);
+					$("#loader").hide();
+					var html = '<li>'
+						+ '<div style="margin-bottom:5px;"><input type="radio" name="default_image" value="' + data + '"></div>'
+						+ '<img src="' + data + '" width="160" /><input type="hidden" name="img_url" value="'+data+'" /></li>';
+					parent.$("#imgbox").append(html);
+					parent.$.colorbox.close();
+					return false;
+				},
+				error: function (data, status, e) {
+					alert('上传失败');
+				}
+		 	});
+		}catch(e){}
+	} else {
+		$('#result').html('文件格式有误！');
+	}
+}
+
+
+/*产品页面，属性编辑
+function getAttriName(e) {
+	$.post('/attribute',{action:"getAttrNameAjax"}, function(data){
+		if (!data) return;
+		var data = JSON.parse(data);
+		//console.log(data);
+		$.each(data, function(i){
+			var html = '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+			$("#attriname").append(html);
+		})
+	});
+	return false;
+}
+
+function selectAttrValue(v) {
+	if (v) {
+		$("#attriValueName").empty();
+		var attrvid = $(v).val();
+		$.post('/attribute',{action:"getAttriValueListAjax", attribute_id:attrvid }, function(data){
+			if (!data) return;
+			var data = JSON.parse(data);
+			var items = data[attrvid];
+			$.each(items, function(i){
+				var html = '<option value="' + items[i].id + '">' + items[i].value + '</option>';
+				$("#attriValueName").append(html);
+			})
+		});
+	}
+	return false;
+}
+
+function addAttr2pro(e){
+	var id = $("#attriValueName").val();
+	var name = $("#attriValueName option:selected").text();
+	var pname = $("#attriname option:selected").text();
+	var opt = '<option value="' + id + '">' + pname + '<strong> &gt; </strong>' + name + '</option>'
+	$("#selected_attrvalue").append(opt);
+	
+	var ids = $("#selected_attrvalue option");
+	var idsArray = $.makeArray(ids);
+	$(idsArray).each(function(i){
+		var idsArray = $("#attribute_value_ids").val();
+			idsArray += idsArray[i].value;
+	});
+	$("#attribute_value_ids").val(idstring);
+	
+	return false;
+}
+
+function delAttrfrompro(e){
+	if (e == 'all') {
+		var id = $("#selected_attrvalue option");
+	} else {
+		var id = $("#selected_attrvalue option:selected");
+	}
+	$(id).remove();
+	return false;
+}
+
+
+
+
+//TODO
+function OnSelectValueChanged(e) {
+	var ele = $(e).val();
+	var url = window.location.href;
+	switch(ele) {
+	case "cateOnline":
+		$.get('/category',{action:"getCateOrderlist"},function(data){
+			//$("#content").append(data);
+			console.log(data);
+		});
+		//window.location = url + '&getCateOrderlist=1'
+		break;
+	case "cateOffline":
+	   $.get('/category',{action:"getCateOrderlist"},function(data){
+	   		console.log(data);
+	   });
+	   //window.location = url + '&getCateOrderlist=0'
+		break;	
+	default: 
+		
+	}
+}*/

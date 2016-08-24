@@ -1,0 +1,66 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">
+				管理 
+				&nbsp;&nbsp;>&nbsp;&nbsp;角色
+				</h1>
+				<div class="ctrlbar fr">
+					<a class="v13-button-secondary fr" href="/role?action=addAction">
+						<span class="v13-icon-add"></span>添加角色
+					</a>
+				</div>
+			</div>
+			<br />
+			<div class="datatable">
+				<div class="datatableHeader">
+				</div>
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="5%" />
+							<col width="65%" />
+							<col width="30%" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">ID</th>
+								<th>角色名</th>
+								<th class="tc">操作</th>
+							</tr>
+							<!--{if $assign.page.items}-->
+								<!--{foreach key=key item=item from=$assign.page.items}-->
+								<tr>
+									<td class="tc"><!--{$item.id}--></td>
+									<td><a href="role?action=modifyAction&id=<!--{$item.id}-->"><!--{$item.name}--></a></td>
+									<td class="tc">
+										<a href="/role?action=modifyAction&id=<!--{$item.id}-->">
+											<img src="/resources/images/admin/edit.gif" title="编辑"/>
+										</a>
+										<!--{if $item.id != 1}-->
+										<a href="/role?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除角色“<!--{$item.name}-->?”'))return false;">
+											<img src="/resources/images/admin/delete.gif" title="删除"/>
+										</a>
+										<!--{/if}-->
+									</td>
+								</tr>
+								<!--{/foreach}-->
+							<!--{else}-->
+								<tr>
+									<td colspan="9" class="tc">未找到内容</td>
+								</tr>
+							<!--{/if}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->

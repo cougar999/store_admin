@@ -1,0 +1,70 @@
+<?php
+class AdminCategoryController extends AdminController{
+	
+	public function __construct(){
+		$this->template_info = true;
+		$this->count = 20;
+		parent::__construct();
+	}
+	
+	public function initAction(){
+		$pageno = trim(getValue('pageno',1));
+		$parentid = trim(getValue('parentid',-1));
+		
+		$this->assign('page', Category::getPageList($parentid , $pageno));
+		$this->view('category/index.html');
+	}
+	
+	public function getChildList(){
+		$parentid = trim(getValue('parentid',-1));
+		
+		echo json_encode(Category::getChildList($parentid));
+	}
+	
+	public function addAction(){
+		if(!isSubmit('isCategorySubmit')){
+			$this->view('category/add.html');
+		}else{
+			$pid = trim(getValue('pid','-1'));
+			$name = trim(getValue('name'));
+			$description = trim(getValue('description'));
+			
+			$arr_input = array();
+			$arr_input['pid'] = $pid;
+			$arr_input['name'] = $name;
+			$arr_input['description'] = $description;
+			$arr_input['status'] = 1;
+			
+			$obj_category = new Category();
+			$result = $obj_category->add($arr_input);
+			
+			if($result){
+				header("Location:/category?pid=" . $pid);
+			}
+		}
+	}
+	
+	public function modifyAction(){
+		if(!isSubmit('isCategorySubmit')){
+			$this->view('category/edit.html');
+		}else{
+			$pid = trim(getValue('pid','-1'));
+			$name = trim(getValue('name'));
+			$description = trim(getValue('description'));
+			
+			$arr_input = array();
+			$arr_input['pid'] = $pid;
+			$arr_input['name'] = $name;
+			$arr_input['description'] = $description;
+			$arr_input['status'] = 1;
+			
+			$obj_category = new Category();
+			$result = $obj_category->modify($arr_input);
+			
+			if($result){
+				header("Location:/category?pid=" . $pid);
+			}
+		}
+	}
+}
+?>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/frontend/!svn/ver/12466/code/store_admin/trunk/templates/default/attribute
+END
+edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/frontend/!svn/ver/11949/code/store_admin/trunk/templates/default/attribute/edit.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/frontend/!svn/ver/12466/code/store_admin/trunk/templates/default/attribute/index.html
+END
+add.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/frontend/!svn/ver/12367/code/store_admin/trunk/templates/default/attribute/add.html
+END

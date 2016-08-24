@@ -1,0 +1,18 @@
+fieldset {position:relative;padding-top:25px}
+fieldset legend {position:absolute;top:-0.5em;left:1.1em}
+img {border:0;}
+.firstpage2 span,
+.prevpage2 span,
+.nextpage span,
+.lastpage span,
+.nextpage2 span,
+.lastpage2 span {margin-top:0;}
+input {height:22px;padding:0;}
+.v13-button-secondary {width:110px;}
+.v13-button-secondary,.v13-button-secondary span{display:block;}
+.v13-button-secondary span {float:left;}
+.v13-icon-add {display:block;width:15px;}
+.addpromBtn {width:130px;}
+.datatablecontent > table .title > th,.datatablecontent > table td {
+	padding:10px;
+}

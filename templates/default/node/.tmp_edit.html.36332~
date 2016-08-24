@@ -1,0 +1,68 @@
+<!-- content start -->
+<div id="wrapper">
+	<div id="content">
+		<div class="clearfix">
+			<h1>编辑节点</h1>
+		</div>
+		<form enctype="multipart/form-data" method="post"  action="">
+			<fieldset>
+				<legend>节点 -- 编辑节点</legend>
+				<table id="tableviewer" border="0" class="formtable">
+					<tr>
+						<th>类型：</th>
+						<td>
+							<select id="node_type" name="node_type">
+							<!--{foreach key=key item=value from=$assign.arr_node_type}-->
+								<option value="<!--{$key}-->" <!--{if $assign.info.node_type == $key}-->selected="selected"<!--{/if}-->><!--{$value}--></option>
+							<!--{/foreach}-->
+							</select>
+						<td>
+						<th></th>
+						<td id="node_content">
+							<input type="text" id="content_name" name="content_name" readonly="readonly">
+							<input id="content_id" name="content_id" type="hidden">
+							<input type="button" value="关联内容">
+						<td>
+					</tr>
+					<tr>
+						<th>名称：</th><td><input type="text" name="name" value="<!--{$assign.info.name}-->"><td>
+					</tr>
+					<tr>
+						<th>描述：</th><td><textarea name="desc"><!--{$assign.info.desc}--></textarea><td>
+					</tr>
+					<tr>
+						<th>图标：</th><td><!--{if $assign.info.icon}--><img src="<!--{$assign.info.icon}-->" /><!--{/if}--><input type="file" name="icon" multiple="multiple"><td>
+					</tr>
+					<tr>
+						<th>状态：</th>
+						<td>
+							<input type="radio" name="status" value="1" id="onlineSel" <!--{if $assign.info.status == 1}-->checked="checked"<!--{/if}-->><label for="onlineSel">上线</label>
+							&nbsp;&nbsp;
+							<input type="radio" name="status" value="0" id="offlineSel" <!--{if $assign.info.status == 0}-->checked="checked"<!--{/if}-->><label for="offlineSel">下线</label></select>
+						<td>
+					</tr>
+					<tr><td colspan="2"><input type="submit" value="提交"><input type="hidden" name="isNodeSubmit" value="1"></td></tr>
+				</table>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<script language="javascript">
+$(function(){
+	if(3 != $("#node_type").val()){ 
+		$("#node_content").hide();
+	}
+	$("#node_type").change(function(){
+		var value= $(this).val();
+		if(3 == value)
+			$("#node_content").show();
+		else
+			$("#node_content").hide();
+	});
+	$("#node_content").click(function(){
+		$("#content_name").val("手机数码");
+		$("input[name=name]").val("手机数码");
+		$("#content_id").val("1");
+	})
+})
+</script>

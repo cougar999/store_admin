@@ -1,0 +1,80 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">商品列表</h1>
+			</div>
+			<br />
+			
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<div class="fl headertext filter">
+						<!--{include file='search_product_block.tpl'}-->
+					</div>
+					<div class="headertext paging">
+					</div>
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="70" />
+							<col width="60" />
+							<col width="100" />
+							<col width="auto" />
+							<col width="80" />
+							<col width="120" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									选择
+								</th>
+								<th class="tc">ID</th>
+								<th>默认图片</th>
+								<th class="tc">名称</th>
+								<th class="tc">库存</th>
+								<th>价格</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><input type="radio" name="product" value="<!--{$item.id}-->" /></td>
+								<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+								<td><img src="<!--{$item.default_image|default:"/resources/images/no-image.gif"}-->" style="width:auto;height:50px;"></td>
+								<td class="product_name"><!--{$item.name}--></td>
+								<td class="tc"><!--{$item.stock}--></td>
+								<td>
+									<!--{if $item.original_price_name}-->
+										<!--{$item.original_price_name}-->：<!--{$item.original_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.use_price_name}-->
+										<!--{$item.use_price_name}-->：<!--{$item.use_price}--><br>
+									<!--{/if}-->
+									<!--{if $item.dicount_price_name}-->
+										<!--{$item.dicount_price_name}-->：<!--{$item.dicount_price}-->
+									<!--{/if}-->	
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<div class="btns clearfix">
+					<input type="button" name="select_product" id="select_product" value="提交" onclick="node.selectProduct(this);" class="fl" style="margin-right:5px;" />
+					<input type="button" value="取消" onclick="parent.$.colorbox.close();" class="fl" />
+					<div class="wariningState no fl"></div>
+				</div>
+				<!--{else}-->
+					<!--{include file='search_product_block.tpl'}-->
+					<div class="cl"></div>
+				<!--{/if}-->
+			</div>
+			
+			
+		</div>
+	</div>
+<!-- content end -->

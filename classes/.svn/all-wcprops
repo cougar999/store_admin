@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/frontend/!svn/ver/12751/code/store_admin/trunk/classes
+END
+Pager.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/11867/code/store_admin/trunk/classes/Pager.php
+END
+Role.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/frontend/!svn/ver/12154/code/store_admin/trunk/classes/Role.php
+END
+Combination.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/frontend/!svn/ver/12417/code/store_admin/trunk/classes/Combination.php
+END
+ValidateCore.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/frontend/!svn/ver/12207/code/store_admin/trunk/classes/ValidateCore.php
+END
+Coupon.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/frontend/!svn/ver/12282/code/store_admin/trunk/classes/Coupon.php
+END
+Attribute.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/frontend/!svn/ver/12308/code/store_admin/trunk/classes/Attribute.php
+END
+AdminControllerCore.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/frontend/!svn/ver/11867/code/store_admin/trunk/classes/AdminControllerCore.php
+END
+Question.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/frontend/!svn/ver/12572/code/store_admin/trunk/classes/Question.php
+END
+Statistic.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/frontend/!svn/ver/12738/code/store_admin/trunk/classes/Statistic.php
+END
+Area.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/frontend/!svn/ver/12640/code/store_admin/trunk/classes/Area.php
+END
+Autoload.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/frontend/!svn/ver/11867/code/store_admin/trunk/classes/Autoload.php
+END
+Shop.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/frontend/!svn/ver/12732/code/store_admin/trunk/classes/Shop.php
+END
+Order.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/12751/code/store_admin/trunk/classes/Order.php
+END
+COneTableModel.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/frontend/!svn/ver/12344/code/store_admin/trunk/classes/COneTableModel.php
+END
+Category.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/frontend/!svn/ver/12576/code/store_admin/trunk/classes/Category.php
+END
+Product.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/frontend/!svn/ver/12576/code/store_admin/trunk/classes/Product.php
+END
+Image.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/12270/code/store_admin/trunk/classes/Image.php
+END
+interfaces.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/frontend/!svn/ver/12242/code/store_admin/trunk/classes/interfaces.php
+END
+Node.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/frontend/!svn/ver/12700/code/store_admin/trunk/classes/Node.php
+END
+Promote.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/frontend/!svn/ver/12733/code/store_admin/trunk/classes/Promote.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/12365/code/store_admin/trunk/classes/.htaccess
+END
+AdminUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/frontend/!svn/ver/12612/code/store_admin/trunk/classes/AdminUser.php
+END

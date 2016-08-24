@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/frontend/!svn/ver/12028/code/store_admin/trunk/classes/db
+END
+CoreDb.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/frontend/!svn/ver/11867/code/store_admin/trunk/classes/db/CoreDb.php
+END
+CoreMysql.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/frontend/!svn/ver/11867/code/store_admin/trunk/classes/db/CoreMysql.php
+END
+DB.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/12028/code/store_admin/trunk/classes/db/DB.php
+END

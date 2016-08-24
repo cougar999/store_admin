@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/frontend/!svn/ver/12571/code/store_admin/trunk/libs/includes
+END
+template.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/includes/template.php
+END
+HttpClient.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/includes/HttpClient.class.php
+END
+cache.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/includes/cache.php
+END
+feed.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/includes/feed.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/frontend/!svn/ver/11872/code/store_admin/trunk/libs/includes/.htaccess
+END
+post.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/frontend/!svn/ver/12066/code/store_admin/trunk/libs/includes/post.php
+END
+common.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/frontend/!svn/ver/12571/code/store_admin/trunk/libs/includes/common.php
+END

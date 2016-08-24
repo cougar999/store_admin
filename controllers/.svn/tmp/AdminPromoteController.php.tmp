@@ -1,0 +1,119 @@
+<?php
+class AdminPromoteController extends AdminController{
+	public function __construct(){
+		$this->template_info = true;
+		$this->count = 20;
+		parent::__construct();
+	}
+	
+	public function initAction(){
+		$pageno = intval(getValue('pageno',1));
+		$obj_area = new Area();
+		$this->assign("area",$obj_area -> getAllList());
+		$this->assign('page', Promote::getPageList($pageno));
+		$this->view('promote/index.html');
+	}
+	
+	public function addAction(){
+		if(!isSubmit('isPromoteSubmit')){
+			$obj_area = new Area();
+			$this->assign("area",$obj_area -> getAllList());
+			$this->view('promote/add.html');
+			
+		} else {
+			
+			$arr_input = Array();
+			$arr_input['title'] = trim(getValue('title'));
+			$arr_input['chncode'] = trim(getValue('chncode'));
+			$arr_input['description'] = trim(getValue('description'));
+			$arr_input['content'] = trim(getValue('content'));
+			$arr_input['shoptype'] = intval(getValue('shoptype'));
+			$arr_input['prov_id'] = trim(getValue('prov_id'));
+			$arr_input['city_id'] = trim(getValue('city_id'));
+			$arr_input['status'] = intval(getValue('status'));
+			
+			$obj_prom = new Promote();
+			$result = $obj_prom->addPromote($arr_input);
+			
+			if ($result) {
+				header("Location:/promote");
+			}
+			
+		}
+	}
+	
+	public function modifyAction(){
+		if(!isSubmit('isPromoteSubmit')){
+			
+			$prom_id = trim(getValue('id'));
+			$this->assign('prom_link', Promote::getContentByPromId($prom_id));
+			$this->assign('prom_link_shop', json_encode(Promote::getLinkShopByPromId($prom_id)));
+			$this->assign('prom', Promote::viewPromote($prom_id));
+			
+			$obj_area = new Area();
+			$this->assign("area",$obj_area -> getAllList());
+			
+			$this->view('promote/edit.html');
+			
+		} else {
+			
+			$arr_input = Array();
+			$arr_input['id'] = intval(getValue('id'));
+			$arr_input['title'] = trim(getValue('title'));
+			$arr_input['chncode'] = trim(getValue('chncode'));
+			$arr_input['description'] = trim(getValue('description'));
+			$arr_input['content'] = trim(getValue('content'));
+			$arr_input['shoptype'] = intval(getValue('shoptype'));
+			$arr_input['prov_id'] = trim(getValue('prov_id'));
+			$arr_input['city_id'] = trim(getValue('city_id'));
+			$arr_input['status'] = intval(getValue('status'));
+			
+			$obj_prom = new Promote();
+			$result = $obj_prom->modifyPromote($arr_input);
+			
+			unset($arr_input_shop);
+			$arr_input_shop['prom_id'] = intval(getValue('id'));
+			$arr_input_shop['shopids'] = getValue('shopids');
+			
+			$result_shop = $obj_prom->modifyLinkPromShop($arr_input_shop);
+			
+			if ($result && $result_shop) {
+				header("Location:/promote?action=modifyAction&id=" .$arr_input['id']);
+			}
+			
+		}
+	}
+	
+	public function delAction(){
+		$arr_input = Array();
+		$arr_input['id'] = trim(getValue('id'));
+		$obj_prom = new Promote();
+		$result = $obj_prom->deletePromote($arr_input);
+		if ($result) {
+				header("Location:/promote");
+		} else {
+			echo "<scrip>alert('删除失败，请稍后再试');</script>";
+		}
+	}
+	
+	public function getCitylist() {
+		$obj_area = new Area();
+		$result = $obj_area->getAllList();
+		echo json_encode($result);
+	}
+	
+	public function getCouponAjax() {
+		if(!isSubmit('isAddCoupon')){
+			//TODO
+			//$this->assign('page', Coupon::getPageList($pageno));
+			$this->view('promote/addCoupon.html', 'layout_block.html');
+			
+		} else {
+			//TODO
+			
+			
+		}
+	}
+	
+	
+}

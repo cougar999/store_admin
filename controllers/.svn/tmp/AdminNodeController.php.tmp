@@ -1,0 +1,189 @@
+<?php
+class AdminNodeController extends AdminController{
+	
+	public function __construct(){
+		$this->template_info = true;
+		$this->count = 20;
+		
+		parent::__construct();
+	}
+	
+	public function initAction(){
+		$pageno = intval(getValue('pageno',1));
+		
+		$pid = intval(getValue('parentid', -1));
+		if($pid > 0){
+			$arr_node_info = Node::viewNode($pid);
+			$this->assign('title_name' , $arr_node_info['name']);
+		}
+		
+		$this->assign('page' , Node::getPageList($pid , $pageno));
+		$this->view('node/index.html');
+	}
+	
+	public function addAction(){
+		if(!isSubmit('isNodeSubmit')){
+			$this->view('node/add.html');
+		} else {
+			$pid = intval(getValue('parentid',-1));
+			$name = trim(getValue('name'));
+			$desc = trim(getValue('desc'));
+			$content = trim(getValue('content'));
+			if(!empty($_FILES['icon']['name'])){
+				$obj_img = new Image();
+				$icon = $obj_img->uploadFile($_FILES['icon']); 
+			}
+			$status = trim(getValue('status'));
+			$node_type = intval(getValue('node_type'));
+			if(3 == $node_type){	//节点类型：3为商品分类
+				$content_id = intval(getValue('content_id'));
+			}
+			$order_id = intval(getValue('order_id'));
+			$order_type = intval(getValue('order_type'));
+			
+			unset($arr_input);
+			$arr_input['pid'] = $pid;
+			$arr_input['icon'] = $icon;
+			$arr_input['name'] = $name;
+			$arr_input['node_type'] = $node_type;
+			$arr_input['desc'] = $desc;
+			$arr_input['content'] = $content;
+			$arr_input['order_id'] = $order_id;
+			$arr_input['order_type'] = $order_type;
+			$arr_input['status'] = $status;
+			
+			if(isset($content_id) && !empty($content_id)){
+				$arr_input['content_id'] = $content_id;
+			}
+			
+			$node_id = Node::add($arr_input);
+			if($node_id){
+				$detail = self::setMemoryData($node_id);
+				if(!Validate::isUpdateCache($detail)){
+					$url = "/node" . ( ($pid > 0) ? "?parentid=" . $pid : '' );
+					echo '<script language="javascript">alert("缓存更新失败!");window.location.href = "'. $url .'";</script>';
+				}else
+					self::setMemoryAll();
+					header("Location:/node" . ( ($pid > 0) ? "?parentid=" . $pid : '' ));
+			}
+		}
+	}
+	
+	public function modifyAction(){
+		if(!isSubmit('isNodeSubmit')){
+			$id = intval(getValue('id'));
+			
+			$this->assign('info' , Node::view($id));
+			$this->assign('nodecont' , Node::viewNodeContent($id));
+			$this->view('node/edit.html');
+		}else{
+			$id = intval(getValue('id'));
+			$pid = intval(getValue('parentid',-1));
+			$name = trim(getValue('name'));
+			$desc = trim(getValue('desc'));
+			if(!empty($_FILES['icon']['name'])){
+				$obj_img = new Image();
+				$icon = $obj_img->uploadFile($_FILES['icon']); 
+			}
+			$status = trim(getValue('status'));
+			$node_type = intval(getValue('node_type'));
+			if(3 == $node_type){	//节点类型：3为商品分类
+				$content_id = intval(getValue('content_id'));
+			}
+			$order_id = intval(getValue('order_id'));
+			$order_type = intval(getValue('order_type'));
+			
+			unset($arr_input);
+			$arr_input['id'] = $id;
+			$arr_input['pid'] = $pid;
+			$arr_input['icon'] = $icon;
+			$arr_input['name'] = $name;
+			$arr_input['node_type'] = $node_type;
+			$arr_input['desc'] = $desc;
+			$arr_input['order_id'] = $order_id;
+			$arr_input['order_type'] = $order_type;
+			$arr_input['status'] = $status;
+			
+			if(isset($content_id) && !empty($content_id)){
+				$arr_input['content_id'] = $content_id;
+			}
+			$result = Node::modify($arr_input);
+			if($result){
+				$detail = self::setMemoryData($id);
+				if(!Validate::isUpdateCache($detail)){
+					$url = "/node" . ( ($pid > 0) ? "?parentid=" . $pid : '' );
+					echo '<script language="javascript">alert("缓存更新失败!");window.location.href = "'. $url .'";</script>';
+				}else
+					self::setMemoryAll();
+					header("Location:/node" . ( ($pid > 0) ? "?parentid=" . $pid : '' ));
+			}else{
+				echo "不能修改";
+			}
+		}
+	}
+	
+	public function downAction(){
+		$id = intval(getValue("id"));
+		unset($arr_input);
+		$result1 = Node::downNode($id);
+		$result2 = Node::downNodeContent($id);
+			if($result1 && $result2)
+				return true;
+			else
+				return false;
+	}
+	
+	public function setMemorydata($id = 0){
+		if($id == 0)
+			$id = intval(getValue("id"));
+		$node_info = Node::view($id);
+		$node_info['icon'] = empty($node_info['icon']) ? '' : (PIC_PATH . $node_info['icon']);
+		
+		$data['node'] = json_encode($node_info);
+		$detail = ap_core_post("NODE_UPDATE_CACHE",$data);
+		if (isSubmit('ajax')){
+			die($detail);
+		}else{
+			return $detail;
+		}
+	}
+	
+	public function setMemoryAll(){
+		$detail = ap_core_post("NODE_ALL_UPDATE_CACHE");
+		if (isSubmit('ajax')){
+			die($detail);
+		}else{
+			return $detail;
+		}
+	}
+<<<<<<< .mine
+	
+	//点击上线下线直接改变状态
+	public function changeStatus(){
+		$act = trim(getValue('status'));
+		$id = trim(getValue('id'));
+		
+		$obj_node = new Node();
+		$result = $obj_node->updownNode($id, $act);
+		
+		echo $result;
+	}
+=======
+	
+	public function setMemoryDataAction(){
+		$id = intval(getValue("id"));
+		$detail = self::setMemorydata($id);
+		if(Validate::isUpdateCache($detail))
+			$detail1 = self::setMemoryAll();
+		
+		die($detail);
+	}
+	
+	public function updateCacheAll(){
+		$arr_all_list = Node::getAllNodeList();
+		
+		die(json_encode($arr_all_list));
+	}
+>>>>>>> .r12281
+}
+?>

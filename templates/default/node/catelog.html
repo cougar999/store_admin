@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="/resources/js/jquery/treeTable/jquery.treeTable.css" />
+<script type="text/javascript" src="/resources/js/jquery/treeTable/jquery.treeTable.js"></script>
+<style>
+#leftmenu{margin-left:10px;padding:10px;width:200px;float:left;}
+#right_content{margin-left:230px;}
+</style>
+<div class="datatableHeader">
+	<h1 class="fl intitle">发布管理<!--{if $assign.title_name}--> > <!--{$assign.title_name}--><!--{/if}--></h1>
+	<!--{if $assign.all_node}-->
+	<div class="ctrlbar fl">
+		<select id="parent_id" style="margin:2px 0 0 10px;">
+			<!--{foreach key=key item=node_info from=$assign.all_node}-->
+			<option value="<!--{$node_info.id}-->"><!--{$node_info.name}--></option>
+			<!--{/foreach}-->
+		</select>
+	</div>
+	<!--{/if}-->
+	<!--{include file='search_product.tpl'}-->
+	<div class="ctrlbar fr">
+		<a class="v13-button-secondary fl" <!--{if ($assign.session.admin_userid != DEFAULT_ADMIN_USER) && (!$smarty.get.parentid)}-->style="display:none;"<!--{/if}--> id="btn_add_node" href="/node?action=addAction<!--{if $smarty.get.parentid > 0}-->&parentid=<!--{$smarty.get.parentid}--><!--{/if}-->">
+			<span class="v13-icon-add"></span>添加内容
+		</a>
+		<a class="v13-button-secondary fl updateCacheAll" rel="node" href="/node?action=updateCacheAll">
+			<span class="v13-icon-cache"></span>更新缓存
+		</a>
+	</div>
+</div>
+<div id="leftmenu"><img src="/resources/images/loader.gif"></div>
+<div id="right_content"><img src="/resources/images/loader.gif"></div>
+<script language="javascript">
+	$("#leftmenu").load("/node?action=leftmenuAction&parentid="+GetQueryString('parentid'));
+	if(GetQueryString('parentid') > 0){
+		$("#right_content").load("/node?action=listAction&parentid=" + GetQueryString('parentid'));
+	}else
+		$("#right_content").html("<h1>发布栏目列表页，请选择左边的列表查看</h1>");
+</script>

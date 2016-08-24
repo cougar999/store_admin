@@ -1,0 +1,86 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="clearfix">
+				<h1 class="fl">
+				分类列表
+				<!--{foreach key=key item=item from=$assign.pageTitle}-->
+				&nbsp;&nbsp;>&nbsp;&nbsp;<a href="/category?parentid=<!--{$item.id}-->"><!--{$item.name}--></a>
+				<!--{/foreach}-->
+				</h1>
+				<div class="ctrlbar fr">
+					<a class="v13-button-secondary fr" href="/category?action=addAction<!--{if $smarty.get.parentid > 0}-->&parentid=<!--{$smarty.get.parentid|default:-1}--><!--{/if}-->">
+						<span class="v13-icon-add"></span>添加新分类
+					</a>
+				</div>
+			</div>
+			<br />
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<div class="fl headertext filter">
+						<div style="margin:10px 0 0 10px;">分类列表 > </div>
+					</div>
+					
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<col width="60" />
+							<col width="80" />
+							<col width="120" />
+							<col width="200" />
+							<col width="auto" />
+							<col width="100" />
+							<col width="200" />
+							<col width="200" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th>
+								<th class="tc">ID</th>
+								<th class="tc">图标</th>
+								<th>分类名称</th>
+								<th>描述</th>
+								<th class="tc">状态</th>
+								<th>创建时间</th>
+								<th>更新时间</th>
+								<th>操作</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<td class="tc"><input type="checkbox" name="pcroduct" value="<!--{$item.id}-->"/></td>
+								<td class="tc"><!--{if $item.id }--><!--{$item.id}--><!--{else}-->未知<!--{/if}--></td>
+								<td class="tc"><img src="<!--{if !empty($item.icon)}--><!--{$item.icon}--><!--{else}-->/resources/images/no_image.gif<!--{/if}-->" style="width:25px;height:25px;"></td>
+								<td><a href="category?parentid=<!--{$item.id}-->"><!--{$item.name}--></a></td>
+								<td><!--{$item.description}--></td>
+								<td class="tc"><!--{if $item.status && $item.status == 1}-->上线<!--{else}-->下线<!--{/if}--></td>
+								<td><!--{$item.create_time}--></td>
+								<td><!--{$item.update_time}--></td>
+								<td>
+									<a href="/category?action=modifyAction&id=<!--{$item.id}-->&parentid=<!--{$item.pid}-->">编辑</a> | 
+									<a href="/category?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除分类“<!--{$item.name}-->?”'))return false;">删除</a> | 
+									<a href="/category?action=setMemoryData&id=<!--{$item.id}-->" title="<!--{$item.name}-->" class="update_cache">更新缓存</a>
+								</td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+			</div>
+			
+			
+			
+		</div>
+	</div>
+<!-- content end -->

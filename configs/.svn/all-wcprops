@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/frontend/!svn/ver/12566/code/store_admin/trunk/configs
+END
+smarty.conf
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/frontend/!svn/ver/12419/code/store_admin/trunk/configs/smarty.conf
+END
+database.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/frontend/!svn/ver/12566/code/store_admin/trunk/configs/database.php
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/frontend/!svn/ver/11868/code/store_admin/trunk/configs/.htaccess
+END
+autoload.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/frontend/!svn/ver/11868/code/store_admin/trunk/configs/autoload.php
+END

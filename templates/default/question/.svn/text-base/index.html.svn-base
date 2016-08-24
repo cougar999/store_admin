@@ -1,0 +1,105 @@
+<!-- content start -->
+	<div id="wrapper">
+		<div id="content">
+			<div class="datatable">
+				<!--{if $assign.page.items}-->
+				<div class="datatableHeader">
+					<h1 class="fl intitle">问答管理</h1>
+				</div>
+				
+				<div id="TablePanel" class="datatablecontent">
+					<table id="tableviewer" width="100%" border="0">
+						<colgroup>
+							<!-- <col width="40" /> -->
+							<!-- <col width="60" /> -->
+							<col width="auto" />
+							<!-- <col width="80" /> -->
+							<col width="150" />
+							<col width="170" />
+							<col width="170" />
+						</colgroup>
+						<tbody>
+							<tr class="title">
+								<!-- <th class="tc">
+									<input type="checkbox" name="selector" id="selector" />
+								</th> -->
+								<!-- <th class="tc">ID</th> -->
+								<th class="tc">问题</th>
+								<!-- <th class="tc">状态</th> -->
+								<th class="tc">提问用户</th>
+								<th class="tc">更新时间</th>
+								<th class="tc">创建时间</th>
+							</tr>
+							<!--{foreach key=key item=item from=$assign.page.items}-->
+							<tr>
+								<!-- <td class="tc"><input type="checkbox" name="pcroduct" value="<!--{$item.id}-->"/></td> -->
+								<!-- <td class="tc"><!--{$item.id}--></td> -->
+								<td class="quest_content" style="white-space:normal;">
+									<div class="quest_tag fl">问题：</div>
+									<a href="/question?action=getQuestRepay&id=<!--{$item.id}-->" class="view_repay"><!--{$item.content}--></a>
+									<span class="ctrlpanel" style="float:right;">
+										<a href="/question?action=getQuestRepay&id=<!--{$item.id}-->" class="view_repay" title="查看回答"><img src="/resources/images/icon_replist.png" alt="查看回答" title="查看回答"/></a>
+										<a href="/question?action=repayTpl&id=<!--{$item.id}-->" class="quest_repay"><img src="/resources/images/icon_replay.png" alt="回答" title="回答"/></a> 
+										<a href="/question?action=delAction&id=<!--{$item.id}-->" onclick="if(!confirm('确认删除问题“<!--{$item.content|truncate_utf8_string:50:"..."}-->”'))return false;"><img src="/resources/images/icon_trash3.png" title="删除"/></a>
+									</span>
+									<div class="repay_form"></div>
+									<div class="get_repay_list no"></div>
+								</td>
+								<!--<td class="tc"><!--{if $item.status && $item.status == 1}--><a href="javascript:void(0);" onclick="changeStatus('<!--{$item.id}-->', 1,'question', this);">上线</a><!--{else}--><a href="javascript:void(0);" onclick="changeStatus('<!--{$item.id}-->', 0, 'question', this);">下线</a><!--{/if}--></td>-->
+								<td class="tc"><!--{$item.nickname}--></td>
+								<td><!--{$item.update_time}--></td>
+								<td><!--{$item.create_time}--></td>
+							</tr>
+							<!--{/foreach}-->
+						</tbody>
+					</table>
+				</div>
+				<div id="page">
+					<!--{include file='page.tpl'}-->
+				</div>
+				<!--{else}-->
+					<!--{include file='empty_warning.tpl'}-->
+				<!--{/if}-->
+				
+			</div>
+			
+			
+		</div>
+	</div>
+<!-- content end -->
+<script language="javascript">
+$(function(){
+	$(".quest_repay").toggle(
+		function(){
+			if($(this).closest(".ctrlpanel").next(".repay_form").html() != ''){
+				$(this).closest(".ctrlpanel").next(".repay_form").show();
+				return false;
+			}else{
+				var url = $(this).attr("href");
+				$(this).closest(".ctrlpanel").next(".repay_form").load(url);
+				return false;
+			}
+		},
+		function(){
+			$(this).closest(".ctrlpanel").next(".repay_form").hide();
+			return false;
+		}
+	);
+	$(".view_repay").toggle(
+		function(){
+			if($(this).closest(".quest_content").find(".get_repay_list").html() != ''){
+				$(this).closest(".quest_content").find(".get_repay_list").removeClass('no').show();
+				return false;
+			}else{
+				var url = $(this).attr("href");
+				$(this).closest(".quest_content").find(".get_repay_list").load(url).removeClass('no');
+				return false;
+			}
+		},
+		function(){
+			$(this).closest(".quest_content").find(".get_repay_list").hide();
+			return false;
+		}
+	);
+})
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8">
+	<title>爱皮电商后台管理系统</title>
+	<!--{include file='static.tpl'}-->
+	<link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+	<!--[if IE]>
+	<link type="text/css" rel="stylesheet" href="/resources/css/admin-ie.css" />
+	<![endif]-->
+</head>
+<body>
+	<div id="main">
+		<!--{if $assign.controller != 'Login'}-->
+			<!--{include file='header.tpl'}-->
+		<!--{else}-->
+			
+		<!--{/if}-->
+		<div id="contents">
+			<!--{$page}-->
+		</div>
+	</div>
+</body>
+</html>
